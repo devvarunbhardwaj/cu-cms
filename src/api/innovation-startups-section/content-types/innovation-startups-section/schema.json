@@ -1,0 +1,64 @@
+{
+  "kind": "singleType",
+  "collectionName": "innovation_startups_sections",
+  "info": {
+    "singularName": "innovation-startups-section",
+    "pluralName": "innovation-startups-sections",
+    "displayName": "innovation-startups-section",
+    "description": "Innovation & Startups — ecosystem stats, incubation pillars, funded ventures, photo grid."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "ecosystem_heading": {
+      "type": "string",
+      "required": true,
+      "maxLength": 200,
+      "default": "Where student ideas become *funded companies*"
+    },
+    "ecosystem_subheading": {
+      "type": "text",
+      "required": false
+    },
+    "pillars_heading": {
+      "type": "string",
+      "required": true,
+      "maxLength": 200,
+      "default": "From a dorm-room idea to a *funded company*"
+    },
+    "pillars_subheading": {
+      "type": "text",
+      "required": false
+    },
+    "startups_subheading": {
+      "type": "text",
+      "required": false
+    },
+    "stats": {
+      "type": "component",
+      "repeatable": true,
+      "component": "innovation-startups-section.stat",
+      "min": 4,
+      "max": 4
+    },
+    "pillars": {
+      "type": "component",
+      "repeatable": true,
+      "component": "innovation-startups-section.pillar",
+      "max": 4
+    },
+    "startups": {
+      "type": "component",
+      "repeatable": true,
+      "component": "innovation-startups-section.startup"
+    },
+    "grid_tiles": {
+      "type": "component",
+      "repeatable": true,
+      "component": "innovation-startups-section.grid-tile",
+      "max": 6
+    }
+  }
+}

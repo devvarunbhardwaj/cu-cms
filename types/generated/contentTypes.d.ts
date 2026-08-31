@@ -443,6 +443,831 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiCampusLifeSectionCampusLifeSection
+  extends Struct.SingleTypeSchema {
+  collectionName: 'campus_life_sections';
+  info: {
+    description: 'Campus Life \u2014 five tabbed photo galleries.';
+    displayName: 'campus-life-section';
+    pluralName: 'campus-life-sections';
+    singularName: 'campus-life-section';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    cta_label: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 40;
+      }> &
+      Schema.Attribute.DefaultTo<'Campus Life Experience'>;
+    galleries: Schema.Attribute.Component<'campus-life-section.gallery', true> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 5;
+        },
+        number
+      >;
+    heading: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }> &
+      Schema.Attribute.DefaultTo<'*Campus Life*\nat Chandigarh University'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::campus-life-section.campus-life-section'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    subheading: Schema.Attribute.Text;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiFaqSectionFaqSection extends Struct.SingleTypeSchema {
+  collectionName: 'faq_sections';
+  info: {
+    description: 'Frequently Asked Questions \u2014 four tabs of Q&A.';
+    displayName: 'faq-section';
+    pluralName: 'faq-sections';
+    singularName: 'faq-section';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    entries: Schema.Attribute.Component<'faq-section.entry', true> &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      >;
+    heading: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }> &
+      Schema.Attribute.DefaultTo<'Frequently Asked *Questions*'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::faq-section.faq-section'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiHeroBackgroundVideoHeroBackgroundVideo
+  extends Struct.SingleTypeSchema {
+  collectionName: 'hero_background_videos';
+  info: {
+    description: "The hero's looping background clip. Kept as its own type so the hero's first fetch stays small.";
+    displayName: 'hero-background-video';
+    pluralName: 'hero-background-videos';
+    singularName: 'hero-background-video';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    background_video: Schema.Attribute.Media<'videos'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::hero-background-video.hero-background-video'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiHeroSectionHeroSection extends Struct.SingleTypeSchema {
+  collectionName: 'hero_sections';
+  info: {
+    description: 'Landing page hero: headline, paragraph, fallback image, countdown.';
+    displayName: 'hero-section';
+    pluralName: 'hero-sections';
+    singularName: 'hero-section';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    countdown_deadline: Schema.Attribute.DateTime;
+    countdown_label: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    fallback_image: Schema.Attribute.Media<'images'>;
+    heading: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }> &
+      Schema.Attribute.DefaultTo<"India's First *AI-Augmented\nMultidisciplinary University*">;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::hero-section.hero-section'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    subheading: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'In an era propelled by the advent of artificial intelligence, Chandigarh University, Uttar Pradesh, has embraced a multidisciplinary education model enriched by AI integration, prioritising customised learning pathways, data-driven insights, virtual reality experiences, and real-world simulations to prepare global visionaries.'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiInnovationStartupsSectionInnovationStartupsSection
+  extends Struct.SingleTypeSchema {
+  collectionName: 'innovation_startups_sections';
+  info: {
+    description: 'Innovation & Startups \u2014 ecosystem stats, incubation pillars, funded ventures, photo grid.';
+    displayName: 'innovation-startups-section';
+    pluralName: 'innovation-startups-sections';
+    singularName: 'innovation-startups-section';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    ecosystem_heading: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }> &
+      Schema.Attribute.DefaultTo<'Where student ideas become *funded companies*'>;
+    ecosystem_subheading: Schema.Attribute.Text;
+    grid_tiles: Schema.Attribute.Component<
+      'innovation-startups-section.grid-tile',
+      true
+    > &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 6;
+        },
+        number
+      >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::innovation-startups-section.innovation-startups-section'
+    > &
+      Schema.Attribute.Private;
+    pillars: Schema.Attribute.Component<
+      'innovation-startups-section.pillar',
+      true
+    > &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 4;
+        },
+        number
+      >;
+    pillars_heading: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }> &
+      Schema.Attribute.DefaultTo<'From a dorm-room idea to a *funded company*'>;
+    pillars_subheading: Schema.Attribute.Text;
+    publishedAt: Schema.Attribute.DateTime;
+    startups: Schema.Attribute.Component<
+      'innovation-startups-section.startup',
+      true
+    >;
+    startups_subheading: Schema.Attribute.Text;
+    stats: Schema.Attribute.Component<
+      'innovation-startups-section.stat',
+      true
+    > &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 4;
+          min: 4;
+        },
+        number
+      >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiInternationalSectionInternationalSection
+  extends Struct.SingleTypeSchema {
+  collectionName: 'international_sections';
+  info: {
+    description: 'Distinct Global Advantage \u2014 advantage cards and partner-university logos.';
+    displayName: 'international-section';
+    pluralName: 'international-sections';
+    singularName: 'international-section';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    cards: Schema.Attribute.Component<
+      'international-section.advantage-card',
+      true
+    > &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    heading: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }> &
+      Schema.Attribute.DefaultTo<'Distinct *Global Advantage*'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::international-section.international-section'
+    > &
+      Schema.Attribute.Private;
+    partner_logos: Schema.Attribute.Media<'images', true>;
+    publishedAt: Schema.Attribute.DateTime;
+    subheading: Schema.Attribute.Text;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiMomentsMilestoneSectionMomentsMilestoneSection
+  extends Struct.SingleTypeSchema {
+  collectionName: 'moments_milestone_sections';
+  info: {
+    description: 'Moments, Milestones & Recognition card stack.';
+    displayName: 'moments-milestone-section';
+    pluralName: 'moments-milestone-sections';
+    singularName: 'moments-milestone-section';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    cards: Schema.Attribute.Component<
+      'moments-milestone-section.moment-card',
+      true
+    > &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    heading: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }> &
+      Schema.Attribute.DefaultTo<'Moments, Milestones & *Recognition*'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::moments-milestone-section.moments-milestone-section'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiNewsSectionNewsSection extends Struct.SingleTypeSchema {
+  collectionName: 'news_sections';
+  info: {
+    description: 'Breaking Barriers \u2014 tabbed news stories and the blog carousel.';
+    displayName: 'news-section';
+    pluralName: 'news-sections';
+    singularName: 'news-section';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    articles: Schema.Attribute.Component<'news-section.article', true>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    heading: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }> &
+      Schema.Attribute.DefaultTo<'*Breaking Barriers*, Shaping Futures! Latest News & Updates'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::news-section.news-section'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    stories: Schema.Attribute.Component<'news-section.story', true> &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      >;
+    tabs: Schema.Attribute.Component<'news-section.tab', true> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 3;
+        },
+        number
+      >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiPlacementSectionPlacementSection
+  extends Struct.SingleTypeSchema {
+  collectionName: 'placement_sections';
+  info: {
+    description: 'Placements \u2014 headline tiles, the yearly series the dashboard scrubs, the achiever rail and the success-story carousel. The per-department bubble chart and the per-stream dashboards are derived from these rows and are not modelled.';
+    displayName: 'placement-section';
+    pluralName: 'placement-sections';
+    singularName: 'placement-section';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    achievers: Schema.Attribute.Component<'placement-section.achiever', true> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 3;
+        },
+        number
+      >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::placement-section.placement-section'
+    > &
+      Schema.Attribute.Private;
+    metrics: Schema.Attribute.Component<'placement-section.metric', true> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 4;
+          min: 4;
+        },
+        number
+      >;
+    publishedAt: Schema.Attribute.DateTime;
+    success_stories: Schema.Attribute.Component<
+      'placement-section.success-story',
+      true
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    yearly_stats: Schema.Attribute.Component<
+      'placement-section.yearly-stat',
+      true
+    > &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      >;
+  };
+}
+
+export interface ApiProgramProgram extends Struct.CollectionTypeSchema {
+  collectionName: 'programs';
+  info: {
+    description: 'One academic program. 70 today, grouped into categories by discipline.';
+    displayName: 'program';
+    pluralName: 'programs';
+    singularName: 'program';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    certifications: Schema.Attribute.Media<'images', true>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    cucet_compulsory: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
+    cucet_scholarship_applicable: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
+    deadline: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    discipline: Schema.Attribute.Enumeration<
+      [
+        'applied-health-sciences',
+        'architecture-and-planning',
+        'biotechnology',
+        'business',
+        'commerce',
+        'computing',
+        'design',
+        'engineering',
+        'hotel-management-and-tourism',
+        'journalism-and-mass-communication',
+        'legal-studies',
+        'liberal-arts',
+        'pharmacy',
+      ]
+    > &
+      Schema.Attribute.Required;
+    duration: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    duration_years: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 20;
+      }>;
+    eligibility: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    eligibility_criteria: Schema.Attribute.Text;
+    features: Schema.Attribute.Component<'program.feature', true>;
+    fee_per_semester: Schema.Attribute.Decimal &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      >;
+    format: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    image: Schema.Attribute.Media<'images'>;
+    level: Schema.Attribute.Enumeration<['UG', 'PG']> &
+      Schema.Attribute.Required;
+    link: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::program.program'
+    > &
+      Schema.Attribute.Private;
+    logo: Schema.Attribute.Media<'images'>;
+    logo_id: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 40;
+      }>;
+    partner: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 120;
+      }>;
+    program_code: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 20;
+      }>;
+    program_name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    program_short_name: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 40;
+      }>;
+    publishedAt: Schema.Attribute.DateTime;
+    roles: Schema.Attribute.Component<'program.role', true>;
+    theme: Schema.Attribute.Enumeration<['light', 'dark', 'active']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'light'>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiSeeUsInActionSectionSeeUsInActionSection
+  extends Struct.SingleTypeSchema {
+  collectionName: 'see_us_in_action_sections';
+  info: {
+    description: 'See Us in Action \u2014 tab bar, icon strip of clips, and the video carousel.';
+    displayName: 'see-us-in-action-section';
+    pluralName: 'see-us-in-action-sections';
+    singularName: 'see-us-in-action-section';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    carousel: Schema.Attribute.Component<
+      'see-us-in-action-section.carousel-item',
+      true
+    > &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      >;
+    categories: Schema.Attribute.Component<
+      'see-us-in-action-section.category',
+      true
+    > &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    heading: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }> &
+      Schema.Attribute.DefaultTo<'See Us in *Action*'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::see-us-in-action-section.see-us-in-action-section'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    subheading: Schema.Attribute.Text;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiStepInsideSectionStepInsideSection
+  extends Struct.SingleTypeSchema {
+  collectionName: 'step_inside_sections';
+  info: {
+    description: 'Step Inside Virtually \u2014 one looping campus clip under an accent headline. Desktop only (hidden below lg).';
+    displayName: 'step-inside-section';
+    pluralName: 'step-inside-sections';
+    singularName: 'step-inside-section';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    heading: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }> &
+      Schema.Attribute.DefaultTo<'Step Inside *Chandigarh University - Virtually!*'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::step-inside-section.step-inside-section'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    tour_poster: Schema.Attribute.Media<'images'>;
+    tour_video: Schema.Attribute.Media<'videos'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiTestimonialSectionTestimonialSection
+  extends Struct.SingleTypeSchema {
+  collectionName: 'testimonial_sections';
+  info: {
+    description: 'Remarkable Insights \u2014 student quotes and the video reel rail.';
+    displayName: 'testimonial-section';
+    pluralName: 'testimonial-sections';
+    singularName: 'testimonial-section';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    heading: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }> &
+      Schema.Attribute.DefaultTo<'*Remarkable Insights* and\nStories from Our Students'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::testimonial-section.testimonial-section'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    testimonials: Schema.Attribute.Component<
+      'testimonial-section.testimonial',
+      true
+    > &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    video_testimonies: Schema.Attribute.Component<
+      'testimonial-section.video-testimony',
+      true
+    >;
+  };
+}
+
+export interface ApiTraditionSectionTraditionSection
+  extends Struct.SingleTypeSchema {
+  collectionName: 'tradition_sections';
+  info: {
+    description: 'Illustrious Legacy \u2014 headline, stats, highlight slides, alumni, quick links. The campus film itself is not modelled: it ships as an AV1 + H.264 pair built by scripts/encode-campus-film.sh, and one upload here would drop the AV1 build.';
+    displayName: 'tradition-section';
+    pluralName: 'tradition-sections';
+    singularName: 'tradition-section';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    alumni: Schema.Attribute.Component<'tradition-section.alumnus', true>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    cta_label: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 40;
+      }> &
+      Schema.Attribute.DefaultTo<'Apply Now'>;
+    film_heading: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }> &
+      Schema.Attribute.DefaultTo<'Welcome to \n*Chandigarh University, Uttar Pradesh*'>;
+    heading: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }> &
+      Schema.Attribute.DefaultTo<'*Illustrious Legacy* of\nChandigarh University'>;
+    highlight_slides: Schema.Attribute.Component<
+      'tradition-section.highlight-slide',
+      true
+    > &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 6;
+        },
+        number
+      >;
+    highlights: Schema.Attribute.Component<
+      'tradition-section.highlight-photo',
+      true
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::tradition-section.tradition-section'
+    > &
+      Schema.Attribute.Private;
+    opportunities_text: Schema.Attribute.Text &
+      Schema.Attribute.DefaultTo<"From securing a dream job with the world's leading companies to serving in the defence forces or pursuing your passion as an artist, CU offers diverse opportunities to fulfil your aspirations.">;
+    publishedAt: Schema.Attribute.DateTime;
+    quick_links: Schema.Attribute.Component<
+      'tradition-section.quick-link',
+      true
+    > &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 6;
+        },
+        number
+      >;
+    stats: Schema.Attribute.Component<'tradition-section.stat', true> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 4;
+          min: 4;
+        },
+        number
+      >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiWhyChooseCuSectionWhyChooseCuSection
+  extends Struct.SingleTypeSchema {
+  collectionName: 'why_choose_cu_sections';
+  info: {
+    description: 'Why Choose CU \u2014 three tabs of reason cards.';
+    displayName: 'why-choose-cu-section';
+    pluralName: 'why-choose-cu-sections';
+    singularName: 'why-choose-cu-section';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    heading: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }> &
+      Schema.Attribute.DefaultTo<'Why Choose *Chandigarh University, Uttar Pradesh?*'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::why-choose-cu-section.why-choose-cu-section'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    reasons: Schema.Attribute.Component<'why-choose-cu-section.reason', true> &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface PluginContentReleasesRelease
   extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_releases';
@@ -954,6 +1779,21 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::campus-life-section.campus-life-section': ApiCampusLifeSectionCampusLifeSection;
+      'api::faq-section.faq-section': ApiFaqSectionFaqSection;
+      'api::hero-background-video.hero-background-video': ApiHeroBackgroundVideoHeroBackgroundVideo;
+      'api::hero-section.hero-section': ApiHeroSectionHeroSection;
+      'api::innovation-startups-section.innovation-startups-section': ApiInnovationStartupsSectionInnovationStartupsSection;
+      'api::international-section.international-section': ApiInternationalSectionInternationalSection;
+      'api::moments-milestone-section.moments-milestone-section': ApiMomentsMilestoneSectionMomentsMilestoneSection;
+      'api::news-section.news-section': ApiNewsSectionNewsSection;
+      'api::placement-section.placement-section': ApiPlacementSectionPlacementSection;
+      'api::program.program': ApiProgramProgram;
+      'api::see-us-in-action-section.see-us-in-action-section': ApiSeeUsInActionSectionSeeUsInActionSection;
+      'api::step-inside-section.step-inside-section': ApiStepInsideSectionStepInsideSection;
+      'api::testimonial-section.testimonial-section': ApiTestimonialSectionTestimonialSection;
+      'api::tradition-section.tradition-section': ApiTraditionSectionTraditionSection;
+      'api::why-choose-cu-section.why-choose-cu-section': ApiWhyChooseCuSectionWhyChooseCuSection;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

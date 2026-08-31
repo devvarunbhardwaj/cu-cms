@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_see_us_in_action_section_carousel_items",
+  "info": {
+    "displayName": "carousel-item",
+    "description": "One slide of the infinite video carousel."
+  },
+  "options": {},
+  "attributes": {
+    "title": { "type": "string", "required": true, "maxLength": 60 },
+    "video_link": { "type": "string", "required": true },
+    "thumbnail": { "type": "media", "multiple": false, "required": false, "allowedTypes": ["images"] }
+  }
+}

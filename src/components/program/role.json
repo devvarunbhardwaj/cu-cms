@@ -1,0 +1,6 @@
+{
+  "collectionName": "components_program_roles",
+  "info": { "displayName": "role", "description": "One career role this program leads to." },
+  "options": {},
+  "attributes": { "label": { "type": "string", "required": true, "maxLength": 80 } }
+}

@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_news_section_tabs",
+  "info": { "displayName": "tab", "description": "One label in the news tab bar." },
+  "options": {},
+  "attributes": {
+    "label": { "type": "string", "required": true, "maxLength": 60 },
+    "group": {
+      "type": "enumeration",
+      "enum": ["signature-events", "celebrity-news", "academic-archives"],
+      "required": true
+    }
+  }
+}

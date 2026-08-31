@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_faq_section_entries",
+  "info": {
+    "displayName": "entry",
+    "description": "One question and answer. Belongs to exactly one tab via `group`."
+  },
+  "options": {},
+  "attributes": {
+    "group": {
+      "type": "enumeration",
+      "enum": ["general", "admissions", "academics", "campus-life"],
+      "required": true
+    },
+    "question": { "type": "text", "required": true },
+    "answer": { "type": "text", "required": true },
+    "cta_label": { "type": "string", "required": false, "maxLength": 40 },
+    "cta_link": { "type": "string", "required": false }
+  }
+}

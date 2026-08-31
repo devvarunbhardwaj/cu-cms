@@ -1,0 +1,32 @@
+{
+  "kind": "singleType",
+  "collectionName": "step_inside_sections",
+  "info": {
+    "singularName": "step-inside-section",
+    "pluralName": "step-inside-sections",
+    "displayName": "step-inside-section",
+    "description": "Step Inside Virtually — one looping campus clip under an accent headline. Desktop only (hidden below lg)."
+  },
+  "options": { "draftAndPublish": true },
+  "pluginOptions": {},
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "required": true,
+      "maxLength": 200,
+      "default": "Step Inside *Chandigarh University - Virtually!*"
+    },
+    "tour_video": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["videos"]
+    },
+    "tour_poster": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    }
+  }
+}

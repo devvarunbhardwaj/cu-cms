@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_tradition_section_alumni",
+  "info": {
+    "displayName": "alumnus",
+    "description": "One notable alumnus, shown in the desktop bento and the mobile card stack."
+  },
+  "options": {},
+  "attributes": {
+    "image": { "type": "media", "multiple": false, "required": true, "allowedTypes": ["images"] },
+    "name": { "type": "string", "required": true, "maxLength": 80 },
+    "role": { "type": "string", "required": true, "maxLength": 80 },
+    "status": { "type": "string", "required": false, "maxLength": 80 }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_innovation_startups_section_pillars",
+  "info": {
+    "displayName": "pillar",
+    "description": "One of the things the incubation centre does."
+  },
+  "options": {},
+  "attributes": {
+    "title": { "type": "string", "required": true, "maxLength": 60 },
+    "body": { "type": "text", "required": true },
+    "glyph": {
+      "type": "enumeration",
+      "enum": ["lattice", "orbit", "ascent", "broadcast"],
+      "required": true
+    },
+    "chips": {
+      "type": "component",
+      "repeatable": true,
+      "component": "innovation-startups-section.pillar-chip",
+      "max": 6
+    }
+  }
+}

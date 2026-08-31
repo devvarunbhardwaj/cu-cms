@@ -1,0 +1,12 @@
+{
+  "collectionName": "components_innovation_startups_section_grid_tiles",
+  "info": {
+    "displayName": "grid-tile",
+    "description": "One photo cell in the grid. The first gallery image is the cover."
+  },
+  "options": {},
+  "attributes": {
+    "caption": { "type": "string", "required": true, "maxLength": 80 },
+    "gallery": { "type": "media", "multiple": true, "required": true, "allowedTypes": ["images"] }
+  }
+}

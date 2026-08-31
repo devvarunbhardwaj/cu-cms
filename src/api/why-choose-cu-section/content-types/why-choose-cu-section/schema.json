@@ -1,0 +1,28 @@
+{
+  "kind": "singleType",
+  "collectionName": "why_choose_cu_sections",
+  "info": {
+    "singularName": "why-choose-cu-section",
+    "pluralName": "why-choose-cu-sections",
+    "displayName": "why-choose-cu-section",
+    "description": "Why Choose CU — three tabs of reason cards."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "required": true,
+      "maxLength": 200,
+      "default": "Why Choose *Chandigarh University, Uttar Pradesh?*"
+    },
+    "reasons": {
+      "type": "component",
+      "repeatable": true,
+      "component": "why-choose-cu-section.reason",
+      "min": 1
+    }
+  }
+}

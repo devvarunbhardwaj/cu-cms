@@ -1,0 +1,24 @@
+{
+  "kind": "singleType",
+  "collectionName": "faq_sections",
+  "info": {
+    "singularName": "faq-section",
+    "pluralName": "faq-sections",
+    "displayName": "faq-section",
+    "description": "Frequently Asked Questions — four tabs of Q&A."
+  },
+  "options": { "draftAndPublish": true },
+  "pluginOptions": {},
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "required": true,
+      "maxLength": 200,
+      "default": "Frequently Asked *Questions*"
+    },
+    "entries": {
+      "type": "component", "repeatable": true,
+      "component": "faq-section.entry", "min": 1
+    }
+  }
+}

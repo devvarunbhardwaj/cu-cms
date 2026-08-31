@@ -1,0 +1,170 @@
+{
+  "kind": "collectionType",
+  "collectionName": "programs",
+  "info": {
+    "singularName": "program",
+    "pluralName": "programs",
+    "displayName": "program",
+    "description": "One academic program. 70 today, grouped into categories by discipline."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "program_code": {
+      "type": "string",
+      "required": true,
+      "unique": true,
+      "maxLength": 20
+    },
+    "program_name": {
+      "type": "string",
+      "required": true,
+      "maxLength": 200
+    },
+    "program_short_name": {
+      "type": "string",
+      "required": false,
+      "maxLength": 40
+    },
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 60
+    },
+    "discipline": {
+      "type": "enumeration",
+      "enum": [
+        "applied-health-sciences",
+        "architecture-and-planning",
+        "biotechnology",
+        "business",
+        "commerce",
+        "computing",
+        "design",
+        "engineering",
+        "hotel-management-and-tourism",
+        "journalism-and-mass-communication",
+        "legal-studies",
+        "liberal-arts",
+        "pharmacy"
+      ],
+      "required": true
+    },
+    "level": {
+      "type": "enumeration",
+      "enum": [
+        "UG",
+        "PG"
+      ],
+      "required": true
+    },
+    "theme": {
+      "type": "enumeration",
+      "enum": [
+        "light",
+        "dark",
+        "active"
+      ],
+      "required": true,
+      "default": "light"
+    },
+    "duration": {
+      "type": "string",
+      "required": true,
+      "maxLength": 60
+    },
+    "duration_years": {
+      "type": "string",
+      "required": false,
+      "maxLength": 20
+    },
+    "format": {
+      "type": "string",
+      "required": false,
+      "maxLength": 60
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "eligibility": {
+      "type": "string",
+      "required": false,
+      "maxLength": 200
+    },
+    "eligibility_criteria": {
+      "type": "text",
+      "required": false
+    },
+    "fee_per_semester": {
+      "type": "decimal",
+      "required": false,
+      "min": 0
+    },
+    "cucet_compulsory": {
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    "cucet_scholarship_applicable": {
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    "deadline": {
+      "type": "string",
+      "required": false,
+      "maxLength": 60
+    },
+    "partner": {
+      "type": "string",
+      "required": false,
+      "maxLength": 120
+    },
+    "logo_id": {
+      "type": "string",
+      "required": true,
+      "maxLength": 40
+    },
+    "link": {
+      "type": "string",
+      "required": false
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "logo": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "certifications": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "features": {
+      "type": "component",
+      "repeatable": true,
+      "component": "program.feature"
+    },
+    "roles": {
+      "type": "component",
+      "repeatable": true,
+      "component": "program.role"
+    }
+  }
+}

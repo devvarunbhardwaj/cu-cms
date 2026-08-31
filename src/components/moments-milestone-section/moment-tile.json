@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_moments_milestone_section_moment_tiles",
+  "info": {
+    "displayName": "moment-tile",
+    "description": "One stat tile inside a moment card. Exactly two per card."
+  },
+  "options": {},
+  "attributes": {
+    "label": { "type": "string", "required": true, "maxLength": 60 },
+    "value": { "type": "string", "required": true, "maxLength": 40 },
+    "value_suffix": { "type": "string", "required": false, "maxLength": 120 },
+    "rows": {
+      "type": "component",
+      "repeatable": true,
+      "component": "moments-milestone-section.moment-tile-row",
+      "max": 4
+    }
+  }
+}

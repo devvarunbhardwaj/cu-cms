@@ -1,0 +1,783 @@
+========================================================================
+STRAPI SCHEMA REPORT
+========================================================================
+Project: /home/varun/cms
+Includes: All content-type schemas + all component schemas
+------------------------------------------------------------------------
+
+------------------------------------------------------------------------
+1. startup-section (singleType)
+   File: src/api/startup-section/content-types/startup-section/schema.json
+------------------------------------------------------------------------
+{
+  "kind": "singleType",
+  "collectionName": "startup_sections",
+  "info": {
+    "singularName": "startup-section",
+    "pluralName": "startup-sections",
+    "displayName": "startup-section"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "active_startups": {
+      "type": "string"
+    },
+    "domains": {
+      "type": "string"
+    },
+    "fund_raised": {
+      "type": "string"
+    },
+    "mentors_involved": {
+      "type": "string"
+    },
+    "national_events": {
+      "type": "string"
+    },
+    "startup_incubated": {
+      "type": "string"
+    },
+    "gross_mmr": {
+      "type": "string"
+    },
+    "funded_startup": {
+      "type": "component",
+      "component": "startup-section.funded-startups",
+      "repeatable": true
+    }
+  }
+}
+
+  >> Component: startup-section.funded-startups
+     File: src/components/startup-section/funded-startups.json
+  {
+    "collectionName": "components_startup_section_funded_startups",
+    "info": {
+      "displayName": "funded_startups"
+    },
+    "options": {},
+    "attributes": {
+      "name": {
+        "type": "string"
+      },
+      "description": {
+        "type": "string"
+      },
+      "members": {
+        "type": "string"
+      },
+      "thumbnail": {
+        "type": "media",
+        "multiple": true,
+        "allowedTypes": [
+          "images",
+          "files",
+          "videos",
+          "audios"
+        ]
+      },
+      "video": {
+        "type": "media",
+        "multiple": true,
+        "allowedTypes": [
+          "images",
+          "files",
+          "videos",
+          "audios"
+        ]
+      }
+    },
+    "config": {}
+  }
+
+------------------------------------------------------------------------
+2. program (collectionType)
+   File: src/api/program/content-types/program/schema.json
+------------------------------------------------------------------------
+{
+  "kind": "collectionType",
+  "collectionName": "programs",
+  "info": {
+    "singularName": "program",
+    "pluralName": "programs",
+    "displayName": "program"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "department": {
+      "type": "enumeration",
+      "enum": [
+        "Collaboration",
+        "Engineering",
+        "Commerce",
+        "Media Studies",
+        "Liberal Arts",
+        "Computer Science",
+        "Applied Science",
+        "Hospitality"
+      ]
+    },
+    "level": {
+      "type": "enumeration",
+      "enum": [
+        "UG",
+        "PG"
+      ]
+    },
+    "logo": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "images": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "cucet_scholarship": {
+      "type": "string"
+    },
+    "eligiblity": {
+      "type": "string"
+    },
+    "duration": {
+      "type": "string"
+    },
+    "program_code": {
+      "type": "string"
+    },
+    "link": {
+      "type": "string"
+    }
+  }
+}
+
+  (no components)
+
+------------------------------------------------------------------------
+3. specialized-course (collectionType)
+   File: src/api/specialized-course/content-types/specialized-course/schema.json
+------------------------------------------------------------------------
+{
+  "kind": "collectionType",
+  "collectionName": "specialized_courses",
+  "info": {
+    "singularName": "specialized-course",
+    "pluralName": "specialized-courses",
+    "displayName": "specialized_course"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "iamge": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "duration": {
+      "type": "string"
+    },
+    "organization": {
+      "type": "string"
+    },
+    "link": {
+      "type": "string"
+    }
+  }
+}
+
+  (no components)
+
+------------------------------------------------------------------------
+4. hero-section (singleType)
+   File: src/api/hero-section/content-types/hero-section/schema.json
+------------------------------------------------------------------------
+{
+  "kind": "singleType",
+  "collectionName": "hero_sections",
+  "info": {
+    "singularName": "hero-section",
+    "pluralName": "hero-sections",
+    "displayName": "hero-section"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "required": true
+    },
+    "subheading": {
+      "type": "text",
+      "required": true
+    },
+    "background_video": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "videos"
+      ]
+    },
+    "fallback_iamge": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  }
+}
+
+  (no components)
+
+------------------------------------------------------------------------
+5. step-inside-section (singleType)
+   File: src/api/step-inside-section/content-types/step-inside-section/schema.json
+------------------------------------------------------------------------
+{
+  "kind": "singleType",
+  "collectionName": "step_inside_sections",
+  "info": {
+    "singularName": "step-inside-section",
+    "pluralName": "step-inside-sections",
+    "displayName": "step_inside_section"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "link": {
+      "type": "string"
+    },
+    "video": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    }
+  }
+}
+
+  (no components)
+
+------------------------------------------------------------------------
+6. international-section (singleType)
+   File: src/api/international-section/content-types/international-section/schema.json
+------------------------------------------------------------------------
+{
+  "kind": "singleType",
+  "collectionName": "international_sections",
+  "info": {
+    "singularName": "international-section",
+    "pluralName": "international-sections",
+    "displayName": "International-section"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "subheading": {
+      "type": "string"
+    },
+    "logos": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "International_card": {
+      "type": "component",
+      "component": "shared.international-card",
+      "repeatable": true
+    }
+  }
+}
+
+  >> Component: shared.international-card
+     File: src/components/shared/international-card.json
+  {
+    "collectionName": "components_shared_international_cards",
+    "info": {
+      "displayName": "International-card"
+    },
+    "options": {},
+    "attributes": {
+      "title": {
+        "type": "string"
+      },
+      "description": {
+        "type": "string"
+      },
+      "image": {
+        "type": "media",
+        "multiple": false,
+        "allowedTypes": [
+          "images",
+          "files",
+          "videos",
+          "audios"
+        ]
+      }
+    },
+    "config": {}
+  }
+
+------------------------------------------------------------------------
+7. program-testimonial-section (singleType)
+   File: src/api/program-testimonial-section/content-types/program-testimonial-section/schema.json
+------------------------------------------------------------------------
+{
+  "kind": "singleType",
+  "collectionName": "program_testimonial_sections",
+  "info": {
+    "singularName": "program-testimonial-section",
+    "pluralName": "program-testimonial-sections",
+    "displayName": "program-testimonial-section "
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "remarkable_insights": {
+      "type": "component",
+      "component": "program-testimonial-section.remarkable-insights",
+      "repeatable": true
+    },
+    "CUCET_Achievers": {
+      "type": "component",
+      "component": "program-testimonial-section.cucet-achievers",
+      "repeatable": true
+    },
+    "visit_socials_link": {
+      "type": "string"
+    },
+    "watch_all_stories_link": {
+      "type": "string"
+    }
+  }
+}
+
+  >> Component: program-testimonial-section.remarkable-insights
+     File: src/components/program-testimonial-section/remarkable-insights.json
+  {
+    "collectionName": "components_program_testimonial_section_remarkable_insights",
+    "info": {
+      "displayName": "remarkable_insights"
+    },
+    "options": {},
+    "attributes": {
+      "title": {
+        "type": "string"
+      },
+      "thumbnail": {
+        "type": "media",
+        "multiple": false,
+        "allowedTypes": [
+          "images",
+          "files",
+          "videos",
+          "audios"
+        ]
+      },
+      "youtube_link": {
+        "type": "string"
+      },
+      "year": {
+        "type": "string"
+      },
+      "group": {
+        "type": "enumeration",
+        "enum": [
+          "Alumni",
+          "Guests"
+        ]
+      }
+    },
+    "config": {}
+  }
+
+  >> Component: program-testimonial-section.cucet-achievers
+     File: src/components/program-testimonial-section/cucet-achievers.json
+  {
+    "collectionName": "components_program_testimonial_section_cucet_achievers",
+    "info": {
+      "displayName": "CUCET_Achievers"
+    },
+    "options": {},
+    "attributes": {
+      "type": {
+        "type": "enumeration",
+        "enum": [
+          "Stories",
+          "Short"
+        ]
+      },
+      "title": {
+        "type": "string"
+      },
+      "thumbnail": {
+        "type": "media",
+        "multiple": true,
+        "allowedTypes": [
+          "images",
+          "files",
+          "videos",
+          "audios"
+        ]
+      },
+      "youtube_link": {
+        "type": "string"
+      }
+    },
+    "config": {}
+  }
+
+------------------------------------------------------------------------
+8. see-us-in-action (singleType)
+   File: src/api/see-us-in-action/content-types/see-us-in-action/schema.json
+------------------------------------------------------------------------
+{
+  "kind": "singleType",
+  "collectionName": "see_us_in_actions",
+  "info": {
+    "singularName": "see-us-in-action",
+    "pluralName": "see-us-in-actions",
+    "displayName": "see-us-in-action"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "subheading": {
+      "type": "string"
+    },
+    "category_carousel": {
+      "type": "component",
+      "component": "action.action-carousel",
+      "repeatable": true
+    },
+    "action_cards": {
+      "type": "component",
+      "component": "action.action-cards",
+      "repeatable": true
+    }
+  }
+}
+
+  >> Component: action.action-carousel
+     File: src/components/action/action-carousel.json
+  {
+    "collectionName": "components_action_action_carousels",
+    "info": {
+      "displayName": "action_carousel"
+    },
+    "options": {},
+    "attributes": {
+      "category": {
+        "type": "enumeration",
+        "enum": [
+          "Main Campus",
+          "Library Center",
+          "AI Labs / Incubator",
+          "Sports Complex",
+          "Parks and Fauna",
+          "Research Center",
+          "Hostel Rooms",
+          "Cafeteria / Food"
+        ]
+      },
+      "thumbnail": {
+        "type": "media",
+        "multiple": false,
+        "allowedTypes": [
+          "images",
+          "files",
+          "videos",
+          "audios"
+        ]
+      },
+      "youtube_link": {
+        "type": "string"
+      }
+    },
+    "config": {}
+  }
+
+  >> Component: action.action-cards
+     File: src/components/action/action-cards.json
+  {
+    "collectionName": "components_action_action_cards",
+    "info": {
+      "displayName": "action_cards"
+    },
+    "options": {},
+    "attributes": {
+      "title": {
+        "type": "string"
+      },
+      "thumbnail": {
+        "type": "media",
+        "multiple": true,
+        "allowedTypes": [
+          "images",
+          "files",
+          "videos",
+          "audios"
+        ]
+      },
+      "youtube_link": {
+        "type": "string"
+      }
+    },
+    "config": {}
+  }
+
+------------------------------------------------------------------------
+9. why-choose-cu (singleType)
+   File: src/api/why-choose-cu/content-types/why-choose-cu/schema.json
+------------------------------------------------------------------------
+{
+  "kind": "singleType",
+  "collectionName": "why_choose_cus",
+  "info": {
+    "singularName": "why-choose-cu",
+    "pluralName": "why-choose-cus",
+    "displayName": "why-choose-cu"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "reasons": {
+      "type": "component",
+      "component": "shared.why-choose-cu",
+      "repeatable": true
+    }
+  }
+}
+
+  >> Component: shared.why-choose-cu
+     File: src/components/shared/why-choose-cu.json
+  {
+    "collectionName": "components_shared_why_choose_cus",
+    "info": {
+      "displayName": "why_choose_cu"
+    },
+    "options": {},
+    "attributes": {
+      "group": {
+        "type": "enumeration",
+        "enum": [
+          "Highlights",
+          "AI Integrations",
+          "Academics",
+          "Infrastructure"
+        ]
+      },
+      "title": {
+        "type": "string"
+      },
+      "description": {
+        "type": "string"
+      },
+      "image": {
+        "type": "media",
+        "multiple": true,
+        "allowedTypes": [
+          "images",
+          "files",
+          "videos",
+          "audios"
+        ]
+      }
+    },
+    "config": {}
+  }
+
+------------------------------------------------------------------------
+10. tradition-section (singleType)
+   File: src/api/tradition-section/content-types/tradition-section/schema.json
+------------------------------------------------------------------------
+{
+  "kind": "singleType",
+  "collectionName": "tradition_sections",
+  "info": {
+    "singularName": "tradition-section",
+    "pluralName": "tradition-sections",
+    "displayName": "tradition-section"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "traditioncard": {
+      "type": "component",
+      "component": "shared.traditioncard",
+      "repeatable": false
+    },
+    "alumni": {
+      "type": "string"
+    },
+    "programs": {
+      "type": "string"
+    },
+    "stalwards": {
+      "type": "string"
+    },
+    "placements": {
+      "type": "string"
+    },
+    "expanding_video": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "videos",
+        "files"
+      ]
+    }
+  }
+}
+
+  >> Component: shared.traditioncard
+     File: src/components/shared/traditioncard.json
+  {
+    "collectionName": "components_shared_traditioncards",
+    "info": {
+      "displayName": "traditioncard"
+    },
+    "options": {},
+    "attributes": {
+      "student_image": {
+        "type": "media",
+        "multiple": false,
+        "allowedTypes": [
+          "images"
+        ]
+      },
+      "student_name": {
+        "type": "string"
+      },
+      "placement_in": {
+        "type": "string"
+      }
+    },
+    "config": {}
+  }
+
+------------------------------------------------------------------------
+11. life-at-cu-section (singleType)
+   File: src/api/life-at-cu-section/content-types/life-at-cu-section/schema.json
+------------------------------------------------------------------------
+{
+  "kind": "singleType",
+  "collectionName": "life_at_cu_sections",
+  "info": {
+    "singularName": "life-at-cu-section",
+    "pluralName": "life-at-cu-sections",
+    "displayName": "life-at-cu-section"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "subheading": {
+      "type": "string"
+    },
+    "link": {
+      "type": "string"
+    },
+    "life_ai_cu_carousel": {
+      "type": "component",
+      "component": "shared.lift-at-cu-card",
+      "repeatable": true
+    }
+  }
+}
+
+  >> Component: shared.lift-at-cu-card
+     File: src/components/shared/lift-at-cu-card.json
+  {
+    "collectionName": "components_shared_lift_at_cu_cards",
+    "info": {
+      "displayName": "lift_at_cu_card"
+    },
+    "options": {},
+    "attributes": {
+      "image": {
+        "type": "media",
+        "multiple": false,
+        "allowedTypes": [
+          "images",
+          "files",
+          "videos",
+          "audios"
+        ]
+      },
+      "group": {
+        "type": "enumeration",
+        "enum": [
+          "Infrastructure",
+          "AI Labs",
+          "Events",
+          "Fests",
+          "Academic"
+        ]
+      }
+    },
+    "config": {}
+  }
+
+========================================================================
+END OF REPORT
+Total: 11 content-types, 9 components
+========================================================================

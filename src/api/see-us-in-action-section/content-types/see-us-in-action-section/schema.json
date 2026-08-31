@@ -1,0 +1,38 @@
+{
+  "kind": "singleType",
+  "collectionName": "see_us_in_action_sections",
+  "info": {
+    "singularName": "see-us-in-action-section",
+    "pluralName": "see-us-in-action-sections",
+    "displayName": "see-us-in-action-section",
+    "description": "See Us in Action — tab bar, icon strip of clips, and the video carousel."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "required": true,
+      "maxLength": 200,
+      "default": "See Us in *Action*"
+    },
+    "subheading": {
+      "type": "text",
+      "required": false
+    },
+    "categories": {
+      "type": "component",
+      "repeatable": true,
+      "component": "see-us-in-action-section.category",
+      "min": 1
+    },
+    "carousel": {
+      "type": "component",
+      "repeatable": true,
+      "component": "see-us-in-action-section.carousel-item",
+      "min": 1
+    }
+  }
+}

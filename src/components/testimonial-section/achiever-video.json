@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_testimonial_section_achiever_videos",
+  "info": {
+    "displayName": "achiever-video",
+    "description": "One clip in the auto-scrolling strip under the reels. The still comes from YouTube, so there is nothing to upload."
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 120
+    },
+    "video_link": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

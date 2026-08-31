@@ -1,0 +1,12 @@
+{
+  "collectionName": "components_tradition_section_highlight_photos",
+  "info": {
+    "displayName": "highlight-photo",
+    "description": "One captioned photo in the highlights grid."
+  },
+  "options": {},
+  "attributes": {
+    "image": { "type": "media", "multiple": false, "required": true, "allowedTypes": ["images"] },
+    "title": { "type": "string", "required": true, "maxLength": 80 }
+  }
+}

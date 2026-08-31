@@ -1,0 +1,37 @@
+{
+  "collectionName": "components_program_features",
+  "info": {
+    "displayName": "feature",
+    "description": "One numbered highlight on the program page."
+  },
+  "options": {},
+  "attributes": {
+    "num": {
+      "type": "string",
+      "required": true,
+      "maxLength": 8
+    },
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 120
+    },
+    "title_highlight": {
+      "type": "string",
+      "required": false,
+      "maxLength": 120
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  }
+}

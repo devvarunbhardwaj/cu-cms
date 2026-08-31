@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_international_section_advantage_cards",
+  "info": {
+    "displayName": "advantage-card",
+    "description": "One card in the Distinct Global Advantage list."
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 120
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  }
+}

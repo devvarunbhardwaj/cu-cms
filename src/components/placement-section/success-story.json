@@ -1,0 +1,54 @@
+{
+  "collectionName": "components_placement_section_success_stories",
+  "info": {
+    "displayName": "success-story",
+    "description": "One placed student in the carousel. Belongs to exactly one stream tab via `stream` — a slug, since a Strapi enum cannot hold a space."
+  },
+  "options": {},
+  "attributes": {
+    "stream": {
+      "type": "enumeration",
+      "enum": [
+        "engineering",
+        "business-management",
+        "marketing",
+        "applied-sciences",
+        "hotel-management",
+        "pharma"
+      ],
+      "required": true
+    },
+    "name": {
+      "type": "string",
+      "required": true,
+      "maxLength": 80
+    },
+    "designation": {
+      "type": "string",
+      "required": true,
+      "maxLength": 120
+    },
+    "company_image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "person_image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "successful_sessions": {
+      "type": "integer",
+      "required": false,
+      "min": 0,
+      "default": 0
+    }
+  }
+}

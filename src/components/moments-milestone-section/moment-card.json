@@ -1,0 +1,64 @@
+{
+  "collectionName": "components_moments_milestone_section_moment_cards",
+  "info": {
+    "displayName": "moment-card",
+    "description": "One card in the sticky stack: badge, headline, body, photo, two stat tiles."
+  },
+  "options": {},
+  "attributes": {
+    "badge": {
+      "type": "string",
+      "required": true,
+      "maxLength": 60
+    },
+    "head_sans": {
+      "type": "string",
+      "required": true,
+      "maxLength": 80
+    },
+    "head_italic": {
+      "type": "string",
+      "required": true,
+      "maxLength": 80
+    },
+    "head_tail": {
+      "type": "string",
+      "required": false,
+      "maxLength": 80
+    },
+    "body": {
+      "type": "text",
+      "required": true
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "image_caption": {
+      "type": "string",
+      "required": false,
+      "maxLength": 120
+    },
+    "image_treatment": {
+      "type": "enumeration",
+      "enum": [
+        "cover",
+        "contain-banner"
+      ],
+      "default": "cover",
+      "required": false
+    },
+    "tiles": {
+      "type": "component",
+      "repeatable": true,
+      "component": "moments-milestone-section.moment-tile",
+      "min": 2,
+      "max": 2,
+      "required": true
+    }
+  }
+}

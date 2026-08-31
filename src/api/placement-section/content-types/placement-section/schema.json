@@ -1,0 +1,30 @@
+{
+  "kind": "singleType",
+  "collectionName": "placement_sections",
+  "info": {
+    "singularName": "placement-section",
+    "pluralName": "placement-sections",
+    "displayName": "placement-section",
+    "description": "Placements — headline tiles, the yearly series the dashboard scrubs, the achiever rail and the success-story carousel. The per-department bubble chart and the per-stream dashboards are derived from these rows and are not modelled."
+  },
+  "options": { "draftAndPublish": true },
+  "pluginOptions": {},
+  "attributes": {
+    "metrics": {
+      "type": "component", "repeatable": true,
+      "component": "placement-section.metric", "min": 4, "max": 4
+    },
+    "yearly_stats": {
+      "type": "component", "repeatable": true,
+      "component": "placement-section.yearly-stat", "min": 1
+    },
+    "achievers": {
+      "type": "component", "repeatable": true,
+      "component": "placement-section.achiever", "max": 3
+    },
+    "success_stories": {
+      "type": "component", "repeatable": true,
+      "component": "placement-section.success-story"
+    }
+  }
+}

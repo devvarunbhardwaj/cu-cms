@@ -1,0 +1,28 @@
+{
+  "kind": "singleType",
+  "collectionName": "international_sections",
+  "info": {
+    "singularName": "international-section",
+    "pluralName": "international-sections",
+    "displayName": "international-section",
+    "description": "Distinct Global Advantage — advantage cards and partner-university logos."
+  },
+  "options": { "draftAndPublish": true },
+  "pluginOptions": {},
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "required": true,
+      "maxLength": 200,
+      "default": "Distinct *Global Advantage*"
+    },
+    "subheading": { "type": "text", "required": false },
+    "cards": {
+      "type": "component",
+      "repeatable": true,
+      "component": "international-section.advantage-card",
+      "min": 1
+    },
+    "partner_logos": { "type": "media", "multiple": true, "required": false, "allowedTypes": ["images"] }
+  }
+}

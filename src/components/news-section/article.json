@@ -1,0 +1,56 @@
+{
+  "collectionName": "components_news_section_articles",
+  "info": {
+    "displayName": "article",
+    "description": "One blog card in the bottom carousel. The headline is four runs, not one accent-marked string: it carries three treatments (red italic, medium, regular)."
+  },
+  "options": {},
+  "attributes": {
+    "title_accent": {
+      "type": "string",
+      "required": true,
+      "maxLength": 80
+    },
+    "title_lead": {
+      "type": "string",
+      "required": true,
+      "maxLength": 80
+    },
+    "title_highlight": {
+      "type": "string",
+      "required": true,
+      "maxLength": 80
+    },
+    "title_tail": {
+      "type": "string",
+      "required": false,
+      "maxLength": 40
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "author_name": {
+      "type": "string",
+      "required": true,
+      "maxLength": 60
+    },
+    "author_role": {
+      "type": "string",
+      "required": true,
+      "maxLength": 60
+    },
+    "author_avatar": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  }
+}

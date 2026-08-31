@@ -1,0 +1,12 @@
+{
+  "collectionName": "components_tradition_section_quick_links",
+  "info": {
+    "displayName": "quick-link",
+    "description": "One row in the quick-links list on the mobile stats card."
+  },
+  "options": {},
+  "attributes": {
+    "label": { "type": "string", "required": true, "maxLength": 60 },
+    "link": { "type": "string", "required": true }
+  }
+}

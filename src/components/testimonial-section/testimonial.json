@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_testimonial_section_testimonials",
+  "info": {
+    "displayName": "testimonial",
+    "description": "One 9:16 reel card. The clip plays inline once the card becomes the active one; the thumbnail is what everything else shows."
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 160
+    },
+    "video_link": {
+      "type": "string",
+      "required": true
+    },
+    "thumbnail": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "kind": "singleType",
+  "collectionName": "tradition_sections",
+  "info": {
+    "singularName": "tradition-section",
+    "pluralName": "tradition-sections",
+    "displayName": "tradition-section",
+    "description": "Illustrious Legacy — headline, stats, highlight slides, alumni, quick links. The campus film itself is not modelled: it ships as an AV1 + H.264 pair built by scripts/encode-campus-film.sh, and one upload here would drop the AV1 build."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "required": true,
+      "maxLength": 200,
+      "default": "*Illustrious Legacy* of\nChandigarh University"
+    },
+    "film_heading": {
+      "type": "string",
+      "required": true,
+      "maxLength": 200,
+      "default": "Welcome to \n*Chandigarh University, Uttar Pradesh*"
+    },
+    "cta_label": { "type": "string", "required": false, "maxLength": 40, "default": "Apply Now" },
+    "opportunities_text": {
+      "type": "text",
+      "required": false,
+      "default": "From securing a dream job with the world's leading companies to serving in the defence forces or pursuing your passion as an artist, CU offers diverse opportunities to fulfil your aspirations."
+    },
+    "stats": {
+      "type": "component",
+      "repeatable": true,
+      "component": "tradition-section.stat",
+      "min": 4,
+      "max": 4
+    },
+    "highlight_slides": {
+      "type": "component",
+      "repeatable": true,
+      "component": "tradition-section.highlight-slide",
+      "max": 6
+    },
+    "alumni": {
+      "type": "component",
+      "repeatable": true,
+      "component": "tradition-section.alumnus"
+    },
+    "highlights": {
+      "type": "component",
+      "repeatable": true,
+      "component": "tradition-section.highlight-photo"
+    },
+    "quick_links": {
+      "type": "component",
+      "repeatable": true,
+      "component": "tradition-section.quick-link",
+      "max": 6
+    }
+  }
+}

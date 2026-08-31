@@ -1,0 +1,38 @@
+{
+  "kind": "singleType",
+  "collectionName": "testimonial_sections",
+  "info": {
+    "singularName": "testimonial-section",
+    "pluralName": "testimonial-sections",
+    "displayName": "testimonial-section",
+    "description": "Remarkable Insights — the vertical reel carousel of dignitary clips, plus the achiever video strip underneath it."
+  },
+  "options": { "draftAndPublish": true },
+  "pluginOptions": {},
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "required": true,
+      "maxLength": 200,
+      "default": "Remarkable Insights *from Distinguished Dignitaries*"
+    },
+    "testimonials": {
+      "type": "component",
+      "repeatable": true,
+      "component": "testimonial-section.testimonial",
+      "min": 1
+    },
+    "achievers_heading": {
+      "type": "string",
+      "required": true,
+      "maxLength": 120,
+      "default": "Stories of Our *Proud Achievers*"
+    },
+    "achiever_videos": {
+      "type": "component",
+      "repeatable": true,
+      "component": "testimonial-section.achiever-video",
+      "min": 1
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "kind": "singleType",
+  "collectionName": "news_sections",
+  "info": {
+    "singularName": "news-section",
+    "pluralName": "news-sections",
+    "displayName": "news-section",
+    "description": "Breaking Barriers — tabbed news stories and the blog carousel."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "required": true,
+      "maxLength": 200,
+      "default": "*Breaking Barriers*, Shaping Futures! Latest News & Updates"
+    },
+    "tabs": {
+      "type": "component",
+      "repeatable": true,
+      "component": "news-section.tab",
+      "max": 3
+    },
+    "stories": {
+      "type": "component",
+      "repeatable": true,
+      "component": "news-section.story",
+      "min": 1
+    },
+    "articles": {
+      "type": "component",
+      "repeatable": true,
+      "component": "news-section.article"
+    }
+  }
+}

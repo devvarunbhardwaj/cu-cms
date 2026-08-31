@@ -1,0 +1,41 @@
+{
+  "collectionName": "components_see_us_in_action_section_categories",
+  "info": {
+    "displayName": "category",
+    "description": "One entry in the icon strip: a still, an icon, and the clip it opens."
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 40
+    },
+    "icon": {
+      "type": "enumeration",
+      "enum": [
+        "building",
+        "book",
+        "cpu",
+        "sports",
+        "tree",
+        "microscope",
+        "bed",
+        "utensils"
+      ],
+      "required": true
+    },
+    "video_url": {
+      "type": "string",
+      "required": true
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "collectionName": "components_moments_milestone_section_moment_tile_rows",
+  "info": {
+    "displayName": "moment-tile-row",
+    "description": "One supporting line inside a tile. Omit the value for a full-width statement row."
+  },
+  "options": {},
+  "attributes": {
+    "label": { "type": "string", "required": true, "maxLength": 120 },
+    "value": { "type": "string", "required": false, "maxLength": 60 }
+  }
+}

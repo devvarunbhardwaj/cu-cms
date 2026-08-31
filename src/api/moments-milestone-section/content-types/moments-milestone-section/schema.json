@@ -1,0 +1,28 @@
+{
+  "kind": "singleType",
+  "collectionName": "moments_milestone_sections",
+  "info": {
+    "singularName": "moments-milestone-section",
+    "pluralName": "moments-milestone-sections",
+    "displayName": "moments-milestone-section",
+    "description": "Moments, Milestones & Recognition card stack."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "required": true,
+      "maxLength": 200,
+      "default": "Moments, Milestones & *Recognition*"
+    },
+    "cards": {
+      "type": "component",
+      "repeatable": true,
+      "component": "moments-milestone-section.moment-card",
+      "min": 1
+    }
+  }
+}

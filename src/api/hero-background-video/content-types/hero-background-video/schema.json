@@ -1,0 +1,24 @@
+{
+  "kind": "singleType",
+  "collectionName": "hero_background_videos",
+  "info": {
+    "singularName": "hero-background-video",
+    "pluralName": "hero-background-videos",
+    "displayName": "hero-background-video",
+    "description": "The hero's looping background clip. Kept as its own type so the hero's first fetch stays small."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "background_video": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "videos"
+      ]
+    }
+  }
+}

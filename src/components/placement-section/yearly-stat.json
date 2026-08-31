@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_placement_section_yearly_stats",
+  "info": {
+    "displayName": "yearly-stat",
+    "description": "One placement year. The bar and donut series are derived from these rows."
+  },
+  "options": {},
+  "attributes": {
+    "year": { "type": "string", "required": true, "maxLength": 20 },
+    "companies_visited": { "type": "integer", "required": true, "min": 0 },
+    "students_placed": { "type": "integer", "required": false, "min": 0 },
+    "highest_package": { "type": "string", "required": false, "maxLength": 20 },
+    "highest_package_intl": { "type": "string", "required": false, "maxLength": 20 },
+    "package_bands": {
+      "type": "component", "repeatable": true,
+      "component": "placement-section.package-band", "max": 8
+    }
+  }
+}

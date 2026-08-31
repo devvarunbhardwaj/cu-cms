@@ -1,0 +1,9 @@
+{
+  "collectionName": "components_placement_section_package_bands",
+  "info": { "displayName": "package-band", "description": "One salary band and the company count in it." },
+  "options": {},
+  "attributes": {
+    "label": { "type": "string", "required": true, "maxLength": 40 },
+    "value": { "type": "integer", "required": true, "min": 0 }
+  }
+}

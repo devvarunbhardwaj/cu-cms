@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_why_choose_cu_section_reasons",
+  "info": {
+    "displayName": "reason",
+    "description": "One reason card. Belongs to exactly one tab via `group`."
+  },
+  "options": {},
+  "attributes": {
+    "group": {
+      "type": "enumeration",
+      "enum": ["distinctive-edge", "ai-first-advantage", "futuristic-academics"],
+      "required": true
+    },
+    "title": { "type": "string", "required": true, "maxLength": 40 },
+    "subtitle": { "type": "string", "required": true, "maxLength": 60 },
+    "mobile_title": { "type": "string", "required": false, "maxLength": 20 },
+    "mobile_subtitle": { "type": "string", "required": false, "maxLength": 20 },
+    "card_title": { "type": "string", "required": true, "maxLength": 120 },
+    "description": { "type": "text", "required": true },
+    "images": { "type": "media", "multiple": true, "required": true, "allowedTypes": ["images"] }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "collectionName": "components_news_section_stories",
+  "info": {
+    "displayName": "story",
+    "description": "One news story. Belongs to exactly one tab via `group`."
+  },
+  "options": {},
+  "attributes": {
+    "group": {
+      "type": "enumeration",
+      "enum": [
+        "signature-events",
+        "celebrity-news",
+        "academic-archives"
+      ],
+      "required": true
+    },
+    "title": {
+      "type": "text",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  }
+}

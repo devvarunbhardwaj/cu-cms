@@ -1,0 +1,8 @@
+{
+  "collectionName": "components_innovation_startups_section_pillar_chips",
+  "info": { "displayName": "pillar-chip", "description": "One capability chip under a pillar." },
+  "options": {},
+  "attributes": {
+    "label": { "type": "string", "required": true, "maxLength": 40 }
+  }
+}

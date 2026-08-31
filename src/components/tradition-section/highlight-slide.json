@@ -1,0 +1,12 @@
+{
+  "collectionName": "components_tradition_section_highlight_slides",
+  "info": {
+    "displayName": "highlight-slide",
+    "description": "One slide of the auto-rotating headline carousel."
+  },
+  "options": {},
+  "attributes": {
+    "title": { "type": "string", "required": true, "maxLength": 160 },
+    "description": { "type": "text", "required": true }
+  }
+}
