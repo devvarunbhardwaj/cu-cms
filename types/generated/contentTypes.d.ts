@@ -933,7 +933,7 @@ export interface ApiProgramProgram extends Struct.CollectionTypeSchema {
       }>;
     duration_years: Schema.Attribute.String &
       Schema.Attribute.SetMinMaxLength<{
-        maxLength: 20;
+        maxLength: 80;
       }>;
     eligibility: Schema.Attribute.String &
       Schema.Attribute.SetMinMaxLength<{
@@ -995,7 +995,7 @@ export interface ApiProgramProgram extends Struct.CollectionTypeSchema {
     title: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
-        maxLength: 60;
+        maxLength: 120;
       }>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

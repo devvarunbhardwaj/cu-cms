@@ -31,7 +31,7 @@
     "title": {
       "type": "string",
       "required": true,
-      "maxLength": 60
+      "maxLength": 120
     },
     "discipline": {
       "type": "enumeration",
@@ -78,7 +78,7 @@
     "duration_years": {
       "type": "string",
       "required": false,
-      "maxLength": 20
+      "maxLength": 80
     },
     "format": {
       "type": "string",
