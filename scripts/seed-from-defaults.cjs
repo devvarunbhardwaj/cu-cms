@@ -2,7 +2,7 @@
  * Seeds every section from the frontend's shipped defaults.
  *
  *   1. In lko-cu:  bun run scripts/dump-cms-defaults.ts  (writes cms-defaults.json)
- *   2. In cms:     node scripts/seed-from-defaults.cjs ../lko-cu/cms-defaults.json
+ *   2. In cms:     node scripts/seed-from-defaults.cjs ../lko-cu/cms-defaults.json [--mock]
  *
  * Boots Strapi in-process (no HTTP server, no API token needed), uploads the
  * referenced media out of lko-cu/public into the media library, then upserts
@@ -20,8 +20,54 @@ const { createStrapi } = require('@strapi/strapi');
 
 (async () => {
 
-const dataPath = process.argv[2];
-if (!dataPath) { console.error('usage: node scripts/seed-from-defaults.cjs <cms-defaults.json>'); process.exit(1); }
+const dataPath = process.argv.find((a) => a.endsWith('.json'));
+const MOCK = process.argv.includes('--mock');
+if (!dataPath) { console.error('usage: node scripts/seed-from-defaults.cjs <cms-defaults.json> [--mock]'); process.exit(1); }
+
+/**
+ * `--mock`: write placeholder content instead of the real copy, so it is
+ * obvious on the page which sections are being served by Strapi rather than
+ * by the shipped fallback. Every text field becomes "Testing <field> <n>",
+ * every number becomes 69. Media, links, enums and the keys the components
+ * match on (year, program_code, logo_id, partner) are left alone so nothing
+ * breaks structurally.
+ */
+const KEEP_KEYS = new Set([
+  'image', 'images', 'thumbnail', 'clip', 'clip_poster', 'fallback_image', 'background_video', 'tour_video',
+  'tour_poster', 'logo', 'certifications', 'company_logo', 'person_image', 'company_image', 'partner_logos',
+  'gallery', 'author_avatar',
+  'video_url', 'video_link', 'link', 'cta_link', 'countdown_deadline',
+  'group', 'stream', 'icon', 'glyph', 'tone', 'image_treatment', 'discipline', 'level', 'theme',
+  'year', 'program_code', 'logo_id', 'partner', 'salary_unit', 'prefix', 'cucet_compulsory', 'cucet_scholarship_applicable',
+]);
+const SHORT_KEYS = new Set(['mobile_title', 'mobile_subtitle', 'num', 'prefix']);
+const mockCounters = new Map();
+function mockText(key, value) {
+  if (/^(https?:\/\/|#|\/)/.test(value)) return value;
+  // Figures keep their shape ("10,000+" -> "69+", "₹1.7 CR" -> "₹69 CR") so the
+  // count-up and unit parsing still have something to work on.
+  if (/\d/.test(value) && value.length <= 16) return value.replace(/\d[\d,]*(\.\d+)?/g, '69');
+  const n = (mockCounters.get(key) ?? 0) + 1; mockCounters.set(key, n);
+  // Fields the schema caps at 20 characters or fewer get the short form.
+  if (SHORT_KEYS.has(key)) return `Test ${n}`;
+  const label = key.replace(/_/g, ' ');
+  const accent = /\*[^*]+\*/.test(value);
+  const brk = value.includes('\n');
+  if (accent) return `Testing ${label} ${n}${brk ? '\n' : ' '}*accent ${n}*`;
+  if (brk) return `Testing ${label} ${n}\nline two`;
+  return `Testing ${label} ${n}`;
+}
+function mock(data) {
+  if (!MOCK) return data;
+  const walk = (value, key) => {
+    if (Array.isArray(value)) return value.map((v) => walk(v, key));
+    if (value && typeof value === 'object') return Object.fromEntries(Object.entries(value).map(([k, v]) => [k, KEEP_KEYS.has(k) ? v : walk(v, k)]));
+    if (typeof value === 'number') return 69;
+    if (typeof value === 'string' && value.trim()) return mockText(key, value);
+    return value;
+  };
+  return walk(data, '');
+}
 const D = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
 const PUBLIC_DIR = process.env.PUBLIC_DIR ?? path.resolve(path.dirname(dataPath), 'public');
 const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cms-seed-'));
@@ -89,6 +135,7 @@ const mediaList = async (assets) => (await Promise.all((assets ?? []).map(media)
 /** Upserts and publishes a single type. */
 async function single(uid, data) {
   const docs = app.documents(uid);
+  data = mock(data);
   const current = await docs.findFirst({ status: 'draft' });
   if (current) await docs.update({ documentId: current.documentId, data, status: 'published' });
   else await docs.create({ data, status: 'published' });
@@ -223,7 +270,7 @@ await single('api::faq-section.faq-section', {
   const docs = app.documents('api::program.program');
   let created = 0, updated = 0;
   for (const p of D.programs) {
-    const data = {
+    const rawData = {
       program_code: p.programCode, program_name: p.programName, program_short_name: orNull(p.programShortName), title: p.title,
       discipline: D.disciplineSlugs[p.discipline] ?? slug(p.discipline), level: p.level, theme: p.theme ?? 'light',
       duration: p.duration, duration_years: orNull(p.durationYears), format: orNull(p.format), description: p.description,
@@ -234,6 +281,7 @@ await single('api::faq-section.faq-section', {
       features: await Promise.all((p.features ?? []).map(async (f) => ({ num: f.num, title: f.title, title_highlight: orNull(f.titleHighlight), description: f.description, image: await media(f.image) }))),
       roles: (p.roles ?? []).map((label) => ({ label })),
     };
+    const data = mock(rawData);
     const existing = await docs.findFirst({ filters: { program_code: p.programCode }, status: 'draft' });
     if (existing) { await docs.update({ documentId: existing.documentId, data, status: 'published' }); updated++; }
     else { await docs.create({ data, status: 'published' }); created++; }
@@ -250,4 +298,4 @@ console.log(`media: uploaded ${uploaded}, reused ${reused}, failed ${failed}`);
 fs.rmSync(tmpDir, { recursive: true, force: true });
 await app.destroy();
 process.exit(0);
-})().catch((e) => { console.error(e); process.exit(1); });
+})().catch((e) => { console.error(e); if (e.details?.errors) console.error(JSON.stringify(e.details.errors.map((x) => `${x.path?.join(".")}: ${x.message}`), null, 1)); process.exit(1); });
