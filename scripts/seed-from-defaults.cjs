@@ -195,6 +195,17 @@ await single('api::moments-milestone-section.moments-milestone-section', {
 
 // ── placement ───────────────────────────────────────────────────────────────
 await single('api::placement-section.placement-section', {
+  heading: D.placement.heading,
+  subheading: orNull(D.placement.subheading),
+  cta_label: orNull(D.placement.ctaLabel),
+  alumni_heading: D.placement.alumniHeading,
+  alumni_subheading: orNull(D.placement.alumniSubheading),
+  stories_heading: D.placement.storiesHeading,
+  stories_cta_label: orNull(D.placement.storiesCtaLabel),
+  network_heading: D.placement.networkHeading,
+  recruiters: (await Promise.all(D.placement.recruiters.map(async (r) => ({
+    name: r.name, logo: await media(r.logo),
+  })))).filter((r) => r.logo),
   metrics: D.placement.metrics.map((m) => ({ value: m.value, label: m.label })),
   yearly_stats: D.placement.years.map((y) => ({
     year: y.year, companies_visited: y.companiesVisited, students_placed: y.studentsPlaced,

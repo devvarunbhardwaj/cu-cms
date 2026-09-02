@@ -886,7 +886,7 @@ export interface ApiPlacementSectionPlacementSection
   extends Struct.SingleTypeSchema {
   collectionName: 'placement_sections';
   info: {
-    description: 'Placements \u2014 headline tiles, the yearly series the dashboard scrubs, the achiever rail and the success-story carousel. The per-department bubble chart and the per-stream dashboards are derived from these rows and are not modelled.';
+    description: 'The placement dashboard: its headings, the four metric tiles, the year-by-year figures, the achiever cards, the success-story carousel and the recruiter wall.';
     displayName: 'placement-section';
     pluralName: 'placement-sections';
     singularName: 'placement-section';
@@ -902,9 +902,27 @@ export interface ApiPlacementSectionPlacementSection
         },
         number
       >;
+    alumni_heading: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 120;
+      }> &
+      Schema.Attribute.DefaultTo<'Meet Our Proud Alumni'>;
+    alumni_subheading: Schema.Attribute.Text;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    cta_label: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 40;
+      }> &
+      Schema.Attribute.DefaultTo<'View Placements'>;
+    heading: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }> &
+      Schema.Attribute.DefaultTo<"The World's Leading *Companies Hire Our Talent*">;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -919,7 +937,26 @@ export interface ApiPlacementSectionPlacementSection
         },
         number
       >;
+    network_heading: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }> &
+      Schema.Attribute.DefaultTo<"*Top-Tier Companies* in CU's Network">;
     publishedAt: Schema.Attribute.DateTime;
+    recruiters: Schema.Attribute.Component<'placement-section.recruiter', true>;
+    stories_cta_label: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 40;
+      }> &
+      Schema.Attribute.DefaultTo<'View All Placements'>;
+    stories_heading: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }> &
+      Schema.Attribute.DefaultTo<'Success Stories of Our *Accomplished Alumni*'>;
+    subheading: Schema.Attribute.Text;
     success_stories: Schema.Attribute.Component<
       'placement-section.success-story',
       true

@@ -5,26 +5,85 @@
     "singularName": "placement-section",
     "pluralName": "placement-sections",
     "displayName": "placement-section",
-    "description": "Placements — headline tiles, the yearly series the dashboard scrubs, the achiever rail and the success-story carousel. The per-department bubble chart and the per-stream dashboards are derived from these rows and are not modelled."
+    "description": "The placement dashboard: its headings, the four metric tiles, the year-by-year figures, the achiever cards, the success-story carousel and the recruiter wall."
   },
-  "options": { "draftAndPublish": true },
+  "options": {
+    "draftAndPublish": true
+  },
   "pluginOptions": {},
   "attributes": {
+    "heading": {
+      "type": "string",
+      "required": true,
+      "maxLength": 200,
+      "default": "The World's Leading *Companies Hire Our Talent*"
+    },
+    "subheading": {
+      "type": "text",
+      "required": false
+    },
+    "cta_label": {
+      "type": "string",
+      "required": false,
+      "maxLength": 40,
+      "default": "View Placements"
+    },
+    "alumni_heading": {
+      "type": "string",
+      "required": true,
+      "maxLength": 120,
+      "default": "Meet Our Proud Alumni"
+    },
+    "alumni_subheading": {
+      "type": "text",
+      "required": false
+    },
+    "stories_heading": {
+      "type": "string",
+      "required": true,
+      "maxLength": 200,
+      "default": "Success Stories of Our *Accomplished Alumni*"
+    },
+    "stories_cta_label": {
+      "type": "string",
+      "required": false,
+      "maxLength": 40,
+      "default": "View All Placements"
+    },
+    "network_heading": {
+      "type": "string",
+      "required": true,
+      "maxLength": 200,
+      "default": "*Top-Tier Companies* in CU's Network"
+    },
     "metrics": {
-      "type": "component", "repeatable": true,
-      "component": "placement-section.metric", "min": 4, "max": 4
+      "type": "component",
+      "repeatable": true,
+      "component": "placement-section.metric",
+      "min": 4,
+      "max": 4
     },
     "yearly_stats": {
-      "type": "component", "repeatable": true,
-      "component": "placement-section.yearly-stat", "min": 1
+      "type": "component",
+      "repeatable": true,
+      "component": "placement-section.yearly-stat",
+      "min": 1
     },
     "achievers": {
-      "type": "component", "repeatable": true,
-      "component": "placement-section.achiever", "max": 3
+      "type": "component",
+      "repeatable": true,
+      "component": "placement-section.achiever",
+      "max": 3
     },
     "success_stories": {
-      "type": "component", "repeatable": true,
+      "type": "component",
+      "repeatable": true,
       "component": "placement-section.success-story"
+    },
+    "recruiters": {
+      "type": "component",
+      "repeatable": true,
+      "component": "placement-section.recruiter"
     }
   }
 }

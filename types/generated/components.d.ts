@@ -470,6 +470,22 @@ export interface PlacementSectionPackageBand extends Struct.ComponentSchema {
   };
 }
 
+export interface PlacementSectionRecruiter extends Struct.ComponentSchema {
+  collectionName: 'components_placement_section_recruiters';
+  info: {
+    description: 'One company in the recruiter wall. Upload the brand-colour mark on a transparent plate; the dark variant of the wall knocks it back to white in CSS.';
+    displayName: 'recruiter';
+  };
+  attributes: {
+    logo: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+  };
+}
+
 export interface PlacementSectionSuccessStory extends Struct.ComponentSchema {
   collectionName: 'components_placement_section_success_stories';
   info: {
@@ -929,6 +945,7 @@ declare module '@strapi/strapi' {
       'placement-section.achiever': PlacementSectionAchiever;
       'placement-section.metric': PlacementSectionMetric;
       'placement-section.package-band': PlacementSectionPackageBand;
+      'placement-section.recruiter': PlacementSectionRecruiter;
       'placement-section.success-story': PlacementSectionSuccessStory;
       'placement-section.yearly-stat': PlacementSectionYearlyStat;
       'program.feature': ProgramFeature;

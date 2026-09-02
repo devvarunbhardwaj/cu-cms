@@ -1,0 +1,9 @@
+{
+  "collectionName": "components_placement_section_recruiters",
+  "info": { "displayName": "recruiter", "description": "One company in the recruiter wall. Upload the brand-colour mark on a transparent plate; the dark variant of the wall knocks it back to white in CSS." },
+  "options": {},
+  "attributes": {
+    "name": { "type": "string", "required": true, "maxLength": 60 },
+    "logo": { "type": "media", "multiple": false, "required": true, "allowedTypes": ["images"] }
+  }
+}
