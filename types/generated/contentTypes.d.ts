@@ -443,6 +443,63 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiAnnouncementBarAnnouncementBar
+  extends Struct.SingleTypeSchema {
+  collectionName: 'announcement_bars';
+  info: {
+    description: 'The thin bar above the navbar \u2014 the current announcement, its register button, and the contact and social links on the right.';
+    displayName: 'announcement-bar';
+    pluralName: 'announcement-bars';
+    singularName: 'announcement-bar';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    contact_links: Schema.Attribute.Component<
+      'announcement-bar.contact-link',
+      true
+    > &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 4;
+        },
+        number
+      >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    cta_label: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 30;
+      }> &
+      Schema.Attribute.DefaultTo<'Register Now'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::announcement-bar.announcement-bar'
+    > &
+      Schema.Attribute.Private;
+    message: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'International Conference On New Media Ecologies: Transforming Communication Paradigms In The Digital Age'>;
+    publishedAt: Schema.Attribute.DateTime;
+    social_links: Schema.Attribute.Component<
+      'announcement-bar.social-link',
+      true
+    > &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 8;
+        },
+        number
+      >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiCampusLifeSectionCampusLifeSection
   extends Struct.SingleTypeSchema {
   collectionName: 'campus_life_sections';
@@ -1003,6 +1060,79 @@ export interface ApiProgramProgram extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiProgramsSectionProgramsSection
+  extends Struct.SingleTypeSchema {
+  collectionName: 'programs_sections';
+  info: {
+    description: 'The chrome around the programme carousel: the section headline, and the CUCET scholarship band under it. The cards themselves are the `program` collection.';
+    displayName: 'programs-section';
+    pluralName: 'programs-sections';
+    singularName: 'programs-section';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    cucet_cta_label: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 40;
+      }> &
+      Schema.Attribute.DefaultTo<'Register for CUCET'>;
+    cucet_cta_link: Schema.Attribute.String;
+    cucet_deadline: Schema.Attribute.DateTime;
+    cucet_deadline_label: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 40;
+      }>;
+    cucet_description: Schema.Attribute.Text;
+    cucet_eyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }> &
+      Schema.Attribute.DefaultTo<'CUCET 2026 \u00B7 Phase II'>;
+    cucet_heading: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }> &
+      Schema.Attribute.DefaultTo<'India\u2019s Premier Scholarship, Unlocking *a World of Opportunities*'>;
+    cucet_helpline: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 30;
+      }>;
+    heading: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }> &
+      Schema.Attribute.DefaultTo<'AI-Integrated, Industry-Aligned\n*Programs* Co-Created with Industry Giants'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::programs-section.programs-section'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    scholarship_slabs: Schema.Attribute.Component<
+      'programs-section.scholarship-slab',
+      true
+    > &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 8;
+        },
+        number
+      >;
+    subheading: Schema.Attribute.Text;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiSeeUsInActionSectionSeeUsInActionSection
   extends Struct.SingleTypeSchema {
   collectionName: 'see_us_in_action_sections';
@@ -1179,6 +1309,10 @@ export interface ApiTraditionSectionTraditionSection
         maxLength: 40;
       }> &
       Schema.Attribute.DefaultTo<'Apply Now'>;
+    departments: Schema.Attribute.Component<
+      'tradition-section.department',
+      true
+    >;
     film_heading: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
@@ -1205,6 +1339,17 @@ export interface ApiTraditionSectionTraditionSection
       'tradition-section.highlight-photo',
       true
     >;
+    impact_rings: Schema.Attribute.Component<
+      'tradition-section.impact-ring',
+      true
+    > &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 3;
+        },
+        number
+      >;
+    lab_images: Schema.Attribute.Media<'images', true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -1213,6 +1358,29 @@ export interface ApiTraditionSectionTraditionSection
       Schema.Attribute.Private;
     opportunities_text: Schema.Attribute.Text &
       Schema.Attribute.DefaultTo<"From securing a dream job with the world's leading companies to serving in the defence forces or pursuing your passion as an artist, CU offers diverse opportunities to fulfil your aspirations.">;
+    overview_metrics: Schema.Attribute.Component<
+      'tradition-section.stat',
+      true
+    > &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 4;
+          min: 4;
+        },
+        number
+      >;
+    patents: Schema.Attribute.Component<'tradition-section.patent', true>;
+    placement_metrics: Schema.Attribute.Component<
+      'tradition-section.stat',
+      true
+    > &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 4;
+          min: 4;
+        },
+        number
+      >;
     publishedAt: Schema.Attribute.DateTime;
     quick_links: Schema.Attribute.Component<
       'tradition-section.quick-link',
@@ -1221,6 +1389,31 @@ export interface ApiTraditionSectionTraditionSection
       Schema.Attribute.SetMinMax<
         {
           max: 6;
+        },
+        number
+      >;
+    research_clusters: Schema.Attribute.Component<
+      'tradition-section.label',
+      true
+    > &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 8;
+        },
+        number
+      >;
+    research_domains: Schema.Attribute.Component<
+      'tradition-section.label',
+      true
+    >;
+    research_metrics: Schema.Attribute.Component<
+      'tradition-section.stat',
+      true
+    > &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 4;
+          min: 4;
         },
         number
       >;
@@ -1791,6 +1984,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::announcement-bar.announcement-bar': ApiAnnouncementBarAnnouncementBar;
       'api::campus-life-section.campus-life-section': ApiCampusLifeSectionCampusLifeSection;
       'api::faq-section.faq-section': ApiFaqSectionFaqSection;
       'api::hero-background-video.hero-background-video': ApiHeroBackgroundVideoHeroBackgroundVideo;
@@ -1801,6 +1995,7 @@ declare module '@strapi/strapi' {
       'api::news-section.news-section': ApiNewsSectionNewsSection;
       'api::placement-section.placement-section': ApiPlacementSectionPlacementSection;
       'api::program.program': ApiProgramProgram;
+      'api::programs-section.programs-section': ApiProgramsSectionProgramsSection;
       'api::see-us-in-action-section.see-us-in-action-section': ApiSeeUsInActionSectionSeeUsInActionSection;
       'api::step-inside-section.step-inside-section': ApiStepInsideSectionStepInsideSection;
       'api::testimonial-section.testimonial-section': ApiTestimonialSectionTestimonialSection;

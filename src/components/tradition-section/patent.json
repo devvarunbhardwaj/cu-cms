@@ -1,0 +1,10 @@
+{
+  "collectionName": "components_tradition_section_patents",
+  "info": { "displayName": "patent", "description": "One row of the patent ledger on the Research tab." },
+  "options": {},
+  "attributes": {
+    "title": { "type": "text", "required": true },
+    "application_id": { "type": "string", "required": true, "maxLength": 40 },
+    "author": { "type": "string", "required": false, "maxLength": 120 }
+  }
+}

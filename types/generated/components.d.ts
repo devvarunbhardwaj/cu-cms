@@ -1,5 +1,38 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface AnnouncementBarContactLink extends Struct.ComponentSchema {
+  collectionName: 'components_announcement_bar_contact_links';
+  info: {
+    description: 'One labelled contact on the left of the right-hand group. The icon is picked from the set the bar draws, not uploaded.';
+    displayName: 'contact-link';
+  };
+  attributes: {
+    icon: Schema.Attribute.Enumeration<['whatsapp', 'phone', 'globe']> &
+      Schema.Attribute.Required;
+    label: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 30;
+      }>;
+    link: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface AnnouncementBarSocialLink extends Struct.ComponentSchema {
+  collectionName: 'components_announcement_bar_social_links';
+  info: {
+    description: 'One social icon. The glyph is chosen by `platform`; the bar ships the artwork.';
+    displayName: 'social-link';
+  };
+  attributes: {
+    link: Schema.Attribute.String & Schema.Attribute.Required;
+    platform: Schema.Attribute.Enumeration<
+      ['facebook', 'x', 'linkedin', 'instagram', 'youtube', 'website']
+    > &
+      Schema.Attribute.Required;
+  };
+}
+
 export interface CampusLifeSectionGallery extends Struct.ComponentSchema {
   collectionName: 'components_campus_life_section_galleries';
   info: {
@@ -567,6 +600,26 @@ export interface ProgramRole extends Struct.ComponentSchema {
   };
 }
 
+export interface ProgramsSectionScholarshipSlab extends Struct.ComponentSchema {
+  collectionName: 'components_programs_section_scholarship_slabs';
+  info: {
+    description: 'One rung of the CUCET scholarship ladder: a score band and what it earns.';
+    displayName: 'scholarship-slab';
+  };
+  attributes: {
+    award: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 40;
+      }>;
+    marks: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 40;
+      }>;
+  };
+}
+
 export interface SeeUsInActionSectionCarouselItem
   extends Struct.ComponentSchema {
   collectionName: 'components_see_us_in_action_section_carousel_items';
@@ -674,6 +727,23 @@ export interface TraditionSectionAlumnus extends Struct.ComponentSchema {
   };
 }
 
+export interface TraditionSectionDepartment extends Struct.ComponentSchema {
+  collectionName: 'components_tradition_section_departments';
+  info: {
+    description: 'One department in the recruitment ranking on the Placement tab.';
+    displayName: 'department';
+  };
+  attributes: {
+    companies: Schema.Attribute.Integer & Schema.Attribute.Required;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 40;
+      }>;
+    students: Schema.Attribute.Integer & Schema.Attribute.Required;
+  };
+}
+
 export interface TraditionSectionHighlightPhoto extends Struct.ComponentSchema {
   collectionName: 'components_tradition_section_highlight_photos';
   info: {
@@ -703,6 +773,58 @@ export interface TraditionSectionHighlightSlide extends Struct.ComponentSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 160;
       }>;
+  };
+}
+
+export interface TraditionSectionImpactRing extends Struct.ComponentSchema {
+  collectionName: 'components_tradition_section_impact_rings';
+  info: {
+    description: 'One dial on the research impact card. `total` is the reference scale the arc is a fraction of, not a real ceiling.';
+    displayName: 'impact-ring';
+  };
+  attributes: {
+    label: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    total: Schema.Attribute.Integer & Schema.Attribute.Required;
+    value: Schema.Attribute.Integer & Schema.Attribute.Required;
+  };
+}
+
+export interface TraditionSectionLabel extends Struct.ComponentSchema {
+  collectionName: 'components_tradition_section_labels';
+  info: {
+    description: 'A bare label \u2014 used for the research domain ticker and the cluster legend, both of which are lists of names.';
+    displayName: 'label';
+  };
+  attributes: {
+    label: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+  };
+}
+
+export interface TraditionSectionPatent extends Struct.ComponentSchema {
+  collectionName: 'components_tradition_section_patents';
+  info: {
+    description: 'One row of the patent ledger on the Research tab.';
+    displayName: 'patent';
+  };
+  attributes: {
+    application_id: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 40;
+      }>;
+    author: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 120;
+      }>;
+    title: Schema.Attribute.Text & Schema.Attribute.Required;
   };
 }
 
@@ -788,6 +910,8 @@ export interface WhyChooseCuSectionReason extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export namespace Public {
     export interface ComponentSchemas {
+      'announcement-bar.contact-link': AnnouncementBarContactLink;
+      'announcement-bar.social-link': AnnouncementBarSocialLink;
       'campus-life-section.gallery': CampusLifeSectionGallery;
       'faq-section.entry': FaqSectionEntry;
       'innovation-startups-section.grid-tile': InnovationStartupsSectionGridTile;
@@ -809,13 +933,18 @@ declare module '@strapi/strapi' {
       'placement-section.yearly-stat': PlacementSectionYearlyStat;
       'program.feature': ProgramFeature;
       'program.role': ProgramRole;
+      'programs-section.scholarship-slab': ProgramsSectionScholarshipSlab;
       'see-us-in-action-section.carousel-item': SeeUsInActionSectionCarouselItem;
       'see-us-in-action-section.category': SeeUsInActionSectionCategory;
       'testimonial-section.achiever-video': TestimonialSectionAchieverVideo;
       'testimonial-section.testimonial': TestimonialSectionTestimonial;
       'tradition-section.alumnus': TraditionSectionAlumnus;
+      'tradition-section.department': TraditionSectionDepartment;
       'tradition-section.highlight-photo': TraditionSectionHighlightPhoto;
       'tradition-section.highlight-slide': TraditionSectionHighlightSlide;
+      'tradition-section.impact-ring': TraditionSectionImpactRing;
+      'tradition-section.label': TraditionSectionLabel;
+      'tradition-section.patent': TraditionSectionPatent;
       'tradition-section.quick-link': TraditionSectionQuickLink;
       'tradition-section.stat': TraditionSectionStat;
       'why-choose-cu-section.reason': WhyChooseCuSectionReason;

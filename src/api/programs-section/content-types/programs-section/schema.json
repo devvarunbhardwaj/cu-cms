@@ -1,0 +1,34 @@
+{
+  "kind": "singleType",
+  "collectionName": "programs_sections",
+  "info": {
+    "singularName": "programs-section",
+    "pluralName": "programs-sections",
+    "displayName": "programs-section",
+    "description": "The chrome around the programme carousel: the section headline, and the CUCET scholarship band under it. The cards themselves are the `program` collection."
+  },
+  "options": { "draftAndPublish": true },
+  "pluginOptions": {},
+  "attributes": {
+    "heading": {
+      "type": "string", "required": true, "maxLength": 200,
+      "default": "AI-Integrated, Industry-Aligned\n*Programs* Co-Created with Industry Giants"
+    },
+    "subheading": { "type": "text", "required": false },
+    "cucet_eyebrow": { "type": "string", "required": false, "maxLength": 60, "default": "CUCET 2026 · Phase II" },
+    "cucet_heading": {
+      "type": "string", "required": true, "maxLength": 200,
+      "default": "India’s Premier Scholarship, Unlocking *a World of Opportunities*"
+    },
+    "cucet_description": { "type": "text", "required": false },
+    "cucet_deadline": { "type": "datetime", "required": false },
+    "cucet_deadline_label": { "type": "string", "required": false, "maxLength": 40 },
+    "cucet_cta_label": { "type": "string", "required": false, "maxLength": 40, "default": "Register for CUCET" },
+    "cucet_cta_link": { "type": "string", "required": false },
+    "cucet_helpline": { "type": "string", "required": false, "maxLength": 30 },
+    "scholarship_slabs": {
+      "type": "component", "repeatable": true,
+      "component": "programs-section.scholarship-slab", "max": 8
+    }
+  }
+}

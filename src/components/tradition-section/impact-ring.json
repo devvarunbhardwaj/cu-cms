@@ -1,0 +1,10 @@
+{
+  "collectionName": "components_tradition_section_impact_rings",
+  "info": { "displayName": "impact-ring", "description": "One dial on the research impact card. `total` is the reference scale the arc is a fraction of, not a real ceiling." },
+  "options": {},
+  "attributes": {
+    "label": { "type": "string", "required": true, "maxLength": 60 },
+    "value": { "type": "integer", "required": true },
+    "total": { "type": "integer", "required": true }
+  }
+}

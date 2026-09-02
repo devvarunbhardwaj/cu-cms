@@ -1,0 +1,9 @@
+{
+  "collectionName": "components_programs_section_scholarship_slabs",
+  "info": { "displayName": "scholarship-slab", "description": "One rung of the CUCET scholarship ladder: a score band and what it earns." },
+  "options": {},
+  "attributes": {
+    "marks": { "type": "string", "required": true, "maxLength": 40 },
+    "award": { "type": "string", "required": true, "maxLength": 40 }
+  }
+}

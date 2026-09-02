@@ -1,0 +1,10 @@
+{
+  "collectionName": "components_tradition_section_departments",
+  "info": { "displayName": "department", "description": "One department in the recruitment ranking on the Placement tab." },
+  "options": {},
+  "attributes": {
+    "name": { "type": "string", "required": true, "maxLength": 40 },
+    "companies": { "type": "integer", "required": true },
+    "students": { "type": "integer", "required": true }
+  }
+}

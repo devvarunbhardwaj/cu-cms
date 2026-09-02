@@ -1,0 +1,8 @@
+{
+  "collectionName": "components_tradition_section_labels",
+  "info": { "displayName": "label", "description": "A bare label — used for the research domain ticker and the cluster legend, both of which are lists of names." },
+  "options": {},
+  "attributes": {
+    "label": { "type": "string", "required": true, "maxLength": 60 }
+  }
+}

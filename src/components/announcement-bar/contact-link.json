@@ -1,0 +1,10 @@
+{
+  "collectionName": "components_announcement_bar_contact_links",
+  "info": { "displayName": "contact-link", "description": "One labelled contact on the left of the right-hand group. The icon is picked from the set the bar draws, not uploaded." },
+  "options": {},
+  "attributes": {
+    "label": { "type": "string", "required": true, "maxLength": 30 },
+    "link": { "type": "string", "required": true },
+    "icon": { "type": "enumeration", "enum": ["whatsapp", "phone", "globe"], "required": true }
+  }
+}

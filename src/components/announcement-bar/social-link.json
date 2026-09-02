@@ -1,0 +1,9 @@
+{
+  "collectionName": "components_announcement_bar_social_links",
+  "info": { "displayName": "social-link", "description": "One social icon. The glyph is chosen by `platform`; the bar ships the artwork." },
+  "options": {},
+  "attributes": {
+    "platform": { "type": "enumeration", "enum": ["facebook", "x", "linkedin", "instagram", "youtube", "website"], "required": true },
+    "link": { "type": "string", "required": true }
+  }
+}

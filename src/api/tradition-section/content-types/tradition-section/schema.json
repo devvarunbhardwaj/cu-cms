@@ -5,7 +5,7 @@
     "singularName": "tradition-section",
     "pluralName": "tradition-sections",
     "displayName": "tradition-section",
-    "description": "Illustrious Legacy — headline, stats, highlight slides, alumni, quick links. The campus film itself is not modelled: it ships as an AV1 + H.264 pair built by scripts/encode-campus-film.sh, and one upload here would drop the AV1 build."
+    "description": "Illustrious Legacy \u2014 headline, stats, highlight slides, alumni, quick links. The campus film itself is not modelled: it ships as an AV1 + H.264 pair built by scripts/encode-campus-film.sh, and one upload here would drop the AV1 build."
   },
   "options": {
     "draftAndPublish": true
@@ -24,7 +24,12 @@
       "maxLength": 200,
       "default": "Welcome to \n*Chandigarh University, Uttar Pradesh*"
     },
-    "cta_label": { "type": "string", "required": false, "maxLength": 40, "default": "Apply Now" },
+    "cta_label": {
+      "type": "string",
+      "required": false,
+      "maxLength": 40,
+      "default": "Apply Now"
+    },
     "opportunities_text": {
       "type": "text",
       "required": false,
@@ -58,6 +63,62 @@
       "repeatable": true,
       "component": "tradition-section.quick-link",
       "max": 6
+    },
+    "placement_metrics": {
+      "type": "component",
+      "repeatable": true,
+      "component": "tradition-section.stat",
+      "min": 4,
+      "max": 4
+    },
+    "overview_metrics": {
+      "type": "component",
+      "repeatable": true,
+      "component": "tradition-section.stat",
+      "min": 4,
+      "max": 4
+    },
+    "research_metrics": {
+      "type": "component",
+      "repeatable": true,
+      "component": "tradition-section.stat",
+      "min": 4,
+      "max": 4
+    },
+    "departments": {
+      "type": "component",
+      "repeatable": true,
+      "component": "tradition-section.department"
+    },
+    "impact_rings": {
+      "type": "component",
+      "repeatable": true,
+      "component": "tradition-section.impact-ring",
+      "max": 3
+    },
+    "patents": {
+      "type": "component",
+      "repeatable": true,
+      "component": "tradition-section.patent"
+    },
+    "research_domains": {
+      "type": "component",
+      "repeatable": true,
+      "component": "tradition-section.label"
+    },
+    "research_clusters": {
+      "type": "component",
+      "repeatable": true,
+      "component": "tradition-section.label",
+      "max": 8
+    },
+    "lab_images": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images"
+      ],
+      "required": false
     }
   }
 }

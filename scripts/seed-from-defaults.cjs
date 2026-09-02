@@ -38,6 +38,7 @@ const KEEP_KEYS = new Set([
   'gallery', 'author_avatar',
   'video_url', 'video_link', 'link', 'cta_link', 'countdown_deadline',
   'group', 'stream', 'icon', 'glyph', 'tone', 'image_treatment', 'discipline', 'level', 'theme',
+  'platform', 'cucet_deadline',
   'year', 'program_code', 'logo_id', 'partner', 'salary_unit', 'prefix', 'cucet_compulsory', 'cucet_scholarship_applicable',
 ]);
 const SHORT_KEYS = new Set(['mobile_title', 'mobile_subtitle', 'num', 'prefix']);
@@ -145,6 +146,14 @@ async function single(uid, data) {
 const slug = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const orNull = (v) => (v === '' || v === undefined ? null : v);
 
+// ── announcement bar ────────────────────────────────────────────────────────
+await single('api::announcement-bar.announcement-bar', {
+  message: D.announcement.message,
+  cta_label: D.announcement.ctaLabel,
+  contact_links: D.announcement.contactLinks.map((c) => ({ label: c.label, link: c.link, icon: c.icon })),
+  social_links: D.announcement.socialLinks.map((s) => ({ platform: s.platform, link: s.link })),
+});
+
 // ── hero ────────────────────────────────────────────────────────────────────
 await single('api::hero-section.hero-section', {
   heading: D.hero.heading, subheading: D.hero.subheading,
@@ -163,6 +172,15 @@ await single('api::tradition-section.tradition-section', {
   alumni: (await Promise.all(D.tradition.alumni.map(async (a) => ({ image: await media(a.image), name: a.name, role: a.role, status: orNull(a.status) })))).filter((a) => a.image),
   highlights: (await Promise.all(D.tradition.highlights.map(async (h) => ({ image: await media(h.image), title: h.title })))).filter((h) => h.image),
   quick_links: D.tradition.quickLinks.map((l) => ({ label: l.label, link: l.href })),
+  placement_metrics: D.tradition.placementMetrics.map((s) => ({ value: s.value, label: s.label, note: orNull(s.note) })),
+  overview_metrics: D.tradition.overviewMetrics.map((s) => ({ value: s.value, label: s.label, note: orNull(s.note) })),
+  research_metrics: D.tradition.researchMetrics.map((s) => ({ value: s.value, label: s.label, note: orNull(s.note) })),
+  departments: D.tradition.departments.map((d) => ({ name: d.name, companies: d.companies, students: d.students })),
+  impact_rings: D.tradition.impactRings.map((r) => ({ label: r.label, value: r.value, total: r.total })),
+  patents: D.tradition.patents.map((p) => ({ title: p.title, application_id: p.applicationId, author: orNull(p.author) })),
+  research_domains: D.tradition.researchDomains.map((label) => ({ label })),
+  research_clusters: D.tradition.researchClusters.map((label) => ({ label })),
+  lab_images: await mediaList(D.tradition.labImages),
 });
 
 // ── moments ─────────────────────────────────────────────────────────────────
@@ -263,6 +281,21 @@ await single('api::news-section.news-section', {
 await single('api::faq-section.faq-section', {
   heading: D.faq.heading,
   entries: D.faq.entries.map((e) => ({ group: slug(e.group), question: e.question, answer: e.answer, cta_label: e.cta?.label ?? null, cta_link: e.cta?.href ?? null })),
+});
+
+// ── programs section chrome ─────────────────────────────────────────────────
+await single('api::programs-section.programs-section', {
+  heading: D.programsSection.heading,
+  subheading: orNull(D.programsSection.subheading),
+  cucet_eyebrow: orNull(D.programsSection.cucetEyebrow),
+  cucet_heading: D.programsSection.cucetHeading,
+  cucet_description: orNull(D.programsSection.cucetDescription),
+  cucet_deadline: D.programsSection.cucetDeadline ? new Date(D.programsSection.cucetDeadline).toISOString() : null,
+  cucet_deadline_label: orNull(D.programsSection.cucetDeadlineLabel),
+  cucet_cta_label: orNull(D.programsSection.cucetCtaLabel),
+  cucet_cta_link: orNull(D.programsSection.cucetCtaLink),
+  cucet_helpline: orNull(D.programsSection.cucetHelpline),
+  scholarship_slabs: D.programsSection.slabs.map((s) => ({ marks: s.marks, award: s.award })),
 });
 
 // ── programs (collection) ───────────────────────────────────────────────────

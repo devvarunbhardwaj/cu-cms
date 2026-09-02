@@ -1,0 +1,30 @@
+{
+  "kind": "singleType",
+  "collectionName": "announcement_bars",
+  "info": {
+    "singularName": "announcement-bar",
+    "pluralName": "announcement-bars",
+    "displayName": "announcement-bar",
+    "description": "The thin bar above the navbar — the current announcement, its register button, and the contact and social links on the right."
+  },
+  "options": { "draftAndPublish": true },
+  "pluginOptions": {},
+  "attributes": {
+    "message": {
+      "type": "text", "required": true,
+      "default": "International Conference On New Media Ecologies: Transforming Communication Paradigms In The Digital Age"
+    },
+    "cta_label": {
+      "type": "string", "required": false, "maxLength": 30,
+      "default": "Register Now"
+    },
+    "contact_links": {
+      "type": "component", "repeatable": true,
+      "component": "announcement-bar.contact-link", "max": 4
+    },
+    "social_links": {
+      "type": "component", "repeatable": true,
+      "component": "announcement-bar.social-link", "max": 8
+    }
+  }
+}
