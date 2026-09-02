@@ -1,12 +1,49 @@
 {
   "collectionName": "components_innovation_startups_section_startups",
-  "info": { "displayName": "startup", "description": "One funded student venture." },
+  "info": {
+    "displayName": "startup",
+    "description": "One funded student venture."
+  },
   "options": {},
   "attributes": {
-    "name": { "type": "string", "required": true, "maxLength": 60 },
-    "sector": { "type": "string", "required": true, "maxLength": 40 },
-    "founders": { "type": "string", "required": true, "maxLength": 120 },
-    "description": { "type": "text", "required": true },
-    "video_url": { "type": "string", "required": false }
+    "name": {
+      "type": "string",
+      "required": true,
+      "maxLength": 60
+    },
+    "sector": {
+      "type": "string",
+      "required": true,
+      "maxLength": 40
+    },
+    "founders": {
+      "type": "string",
+      "required": true,
+      "maxLength": 120
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "video_url": {
+      "type": "string",
+      "required": false
+    },
+    "clip": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "videos"
+      ]
+    },
+    "clip_poster": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    }
   }
 }

@@ -108,6 +108,8 @@ export interface InnovationStartupsSectionStartup
     displayName: 'startup';
   };
   attributes: {
+    clip: Schema.Attribute.Media<'videos'>;
+    clip_poster: Schema.Attribute.Media<'images'>;
     description: Schema.Attribute.Text & Schema.Attribute.Required;
     founders: Schema.Attribute.String &
       Schema.Attribute.Required &
@@ -613,51 +615,35 @@ export interface SeeUsInActionSectionCategory extends Struct.ComponentSchema {
   };
 }
 
-export interface TestimonialSectionTestimonial extends Struct.ComponentSchema {
-  collectionName: 'components_testimonial_section_testimonials';
+export interface TestimonialSectionAchieverVideo
+  extends Struct.ComponentSchema {
+  collectionName: 'components_testimonial_section_achiever_videos';
   info: {
-    description: 'One quote. Renders as a video card when `video_link` is set, a text card otherwise.';
-    displayName: 'testimonial';
+    description: 'One clip in the auto-scrolling strip under the reels. The still comes from YouTube, so there is nothing to upload.';
+    displayName: 'achiever-video';
   };
   attributes: {
-    company: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 120;
-      }>;
-    group: Schema.Attribute.Enumeration<['alumni', 'clubs', 'guests']> &
-      Schema.Attribute.Required;
-    name: Schema.Attribute.String &
+    title: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
-        maxLength: 80;
-      }>;
-    person_image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
-    quote: Schema.Attribute.Text & Schema.Attribute.Required;
-    title: Schema.Attribute.String &
-      Schema.Attribute.SetMinMaxLength<{
         maxLength: 120;
       }>;
-    video_bg: Schema.Attribute.Media<'images'>;
-    video_link: Schema.Attribute.String;
+    video_link: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
-export interface TestimonialSectionVideoTestimony
-  extends Struct.ComponentSchema {
-  collectionName: 'components_testimonial_section_video_testimonies';
+export interface TestimonialSectionTestimonial extends Struct.ComponentSchema {
+  collectionName: 'components_testimonial_section_testimonials';
   info: {
-    description: 'One reel in the video rail.';
-    displayName: 'video-testimony';
+    description: 'One 9:16 reel card. The clip plays inline once the card becomes the active one; the thumbnail is what everything else shows.';
+    displayName: 'testimonial';
   };
   attributes: {
-    group: Schema.Attribute.Enumeration<
-      ['stories', 'shorts', 'placement', 'cultural']
-    > &
-      Schema.Attribute.Required;
+    thumbnail: Schema.Attribute.Media<'images'>;
     title: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
-        maxLength: 120;
+        maxLength: 160;
       }>;
     video_link: Schema.Attribute.String & Schema.Attribute.Required;
   };
@@ -825,8 +811,8 @@ declare module '@strapi/strapi' {
       'program.role': ProgramRole;
       'see-us-in-action-section.carousel-item': SeeUsInActionSectionCarouselItem;
       'see-us-in-action-section.category': SeeUsInActionSectionCategory;
+      'testimonial-section.achiever-video': TestimonialSectionAchieverVideo;
       'testimonial-section.testimonial': TestimonialSectionTestimonial;
-      'testimonial-section.video-testimony': TestimonialSectionVideoTestimony;
       'tradition-section.alumnus': TraditionSectionAlumnus;
       'tradition-section.highlight-photo': TraditionSectionHighlightPhoto;
       'tradition-section.highlight-slide': TraditionSectionHighlightSlide;

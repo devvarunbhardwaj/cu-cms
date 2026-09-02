@@ -1100,7 +1100,7 @@ export interface ApiTestimonialSectionTestimonialSection
   extends Struct.SingleTypeSchema {
   collectionName: 'testimonial_sections';
   info: {
-    description: 'Remarkable Insights \u2014 student quotes and the video reel rail.';
+    description: 'Remarkable Insights \u2014 the vertical reel carousel of dignitary clips, plus the achiever video strip underneath it.';
     displayName: 'testimonial-section';
     pluralName: 'testimonial-sections';
     singularName: 'testimonial-section';
@@ -1109,6 +1109,22 @@ export interface ApiTestimonialSectionTestimonialSection
     draftAndPublish: true;
   };
   attributes: {
+    achiever_videos: Schema.Attribute.Component<
+      'testimonial-section.achiever-video',
+      true
+    > &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      >;
+    achievers_heading: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 120;
+      }> &
+      Schema.Attribute.DefaultTo<'Stories of Our *Proud Achievers*'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1117,7 +1133,7 @@ export interface ApiTestimonialSectionTestimonialSection
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 200;
       }> &
-      Schema.Attribute.DefaultTo<'*Remarkable Insights* and\nStories from Our Students'>;
+      Schema.Attribute.DefaultTo<'Remarkable Insights *from Distinguished Dignitaries*'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -1138,10 +1154,6 @@ export interface ApiTestimonialSectionTestimonialSection
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    video_testimonies: Schema.Attribute.Component<
-      'testimonial-section.video-testimony',
-      true
-    >;
   };
 }
 
