@@ -1,0 +1,66 @@
+{
+  "kind": "singleType",
+  "collectionName": "mobile_docks",
+  "info": {
+    "singularName": "mobile-dock",
+    "pluralName": "mobile-docks",
+    "displayName": "mobile-dock",
+    "description": "Copy for the bottom dock on phones — the register button, the registration sheet it opens (including the phase deadline), and the ask-us chat sheet. The five dock controls and their icons are layout and live in code; only the wording is here."
+  },
+  "options": { "draftAndPublish": true },
+  "pluginOptions": {},
+  "attributes": {
+    "cta_label": {
+      "type": "string", "required": true, "maxLength": 24,
+      "default": "Register Now"
+    },
+    "register_eyebrow": {
+      "type": "string", "required": true, "maxLength": 60,
+      "default": "Apply Today For"
+    },
+    "register_heading": {
+      "type": "string", "required": true, "maxLength": 80,
+      "default": "Chandigarh University Programs"
+    },
+    "register_deadline_note": {
+      "type": "string", "required": true, "maxLength": 90,
+      "default": "Registration End Date (Phase - 1): 15 May 2026"
+    },
+    "register_consent": {
+      "type": "text", "required": true,
+      "default": "By submitting this form, I agree to receive notifications from the University in the form of SMS/E-mail/Call."
+    },
+    "register_submit_label": {
+      "type": "string", "required": true, "maxLength": 24,
+      "default": "APPLY NOW"
+    },
+    "register_success_title": {
+      "type": "string", "required": true, "maxLength": 60,
+      "default": "Registration Submitted!"
+    },
+    "register_success_body": {
+      "type": "string", "required": true, "maxLength": 120,
+      "default": "Our counselors will contact you shortly."
+    },
+    "chat_title": {
+      "type": "string", "required": true, "maxLength": 40,
+      "default": "Ask Us Anything"
+    },
+    "chat_status": {
+      "type": "string", "required": true, "maxLength": 40,
+      "default": "Usually replies instantly"
+    },
+    "chat_greeting": {
+      "type": "text", "required": true,
+      "default": "Hi there! I'm here to help. Ask me anything about us."
+    },
+    "chat_placeholder": {
+      "type": "string", "required": true, "maxLength": 40,
+      "default": "Type your message..."
+    },
+    "chat_suggestions": {
+      "type": "component", "repeatable": true,
+      "component": "mobile-dock.chat-suggestion", "max": 6
+    }
+  }
+}

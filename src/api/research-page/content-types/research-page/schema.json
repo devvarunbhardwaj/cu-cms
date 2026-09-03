@@ -1,0 +1,22 @@
+{
+  "kind": "singleType",
+  "collectionName": "research_pages",
+  "info": {
+    "singularName": "research-page",
+    "pluralName": "research-pages",
+    "displayName": "research-page",
+    "description": "The eyebrow and paragraph above the research explorer on /research. The explorer's own labels and figures are built from the Scopus export by a script and are not editable here."
+  },
+  "options": { "draftAndPublish": true },
+  "pluginOptions": {},
+  "attributes": {
+    "eyebrow": {
+      "type": "string", "required": true, "maxLength": 40,
+      "default": "Research"
+    },
+    "intro": {
+      "type": "text", "required": true,
+      "default": "The detailed view. The map on the home page shows which fields the university publishes in and how much; this is where you read what was actually published — search the corpus, open a domain, and follow the papers and the people behind them."
+    }
+  }
+}

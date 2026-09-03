@@ -1,0 +1,8 @@
+{
+  "collectionName": "components_mobile_dock_chat_suggestions",
+  "info": { "displayName": "chat-suggestion", "description": "One opener chip on a cold chat, so the sheet opens with something to tap instead of an empty field. Kept short — they wrap onto one or two rows at phone width." },
+  "options": {},
+  "attributes": {
+    "label": { "type": "string", "required": true, "maxLength": 30 }
+  }
+}

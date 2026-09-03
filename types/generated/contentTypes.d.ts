@@ -788,6 +788,110 @@ export interface ApiInternationalSectionInternationalSection
   };
 }
 
+export interface ApiMobileDockMobileDock extends Struct.SingleTypeSchema {
+  collectionName: 'mobile_docks';
+  info: {
+    description: 'Copy for the bottom dock on phones \u2014 the register button, the registration sheet it opens (including the phase deadline), and the ask-us chat sheet. The five dock controls and their icons are layout and live in code; only the wording is here.';
+    displayName: 'mobile-dock';
+    pluralName: 'mobile-docks';
+    singularName: 'mobile-dock';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    chat_greeting: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<"Hi there! I'm here to help. Ask me anything about us.">;
+    chat_placeholder: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 40;
+      }> &
+      Schema.Attribute.DefaultTo<'Type your message...'>;
+    chat_status: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 40;
+      }> &
+      Schema.Attribute.DefaultTo<'Usually replies instantly'>;
+    chat_suggestions: Schema.Attribute.Component<
+      'mobile-dock.chat-suggestion',
+      true
+    > &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 6;
+        },
+        number
+      >;
+    chat_title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 40;
+      }> &
+      Schema.Attribute.DefaultTo<'Ask Us Anything'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    cta_label: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 24;
+      }> &
+      Schema.Attribute.DefaultTo<'Register Now'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::mobile-dock.mobile-dock'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    register_consent: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'By submitting this form, I agree to receive notifications from the University in the form of SMS/E-mail/Call.'>;
+    register_deadline_note: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 90;
+      }> &
+      Schema.Attribute.DefaultTo<'Registration End Date (Phase - 1): 15 May 2026'>;
+    register_eyebrow: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }> &
+      Schema.Attribute.DefaultTo<'Apply Today For'>;
+    register_heading: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 80;
+      }> &
+      Schema.Attribute.DefaultTo<'Chandigarh University Programs'>;
+    register_submit_label: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 24;
+      }> &
+      Schema.Attribute.DefaultTo<'APPLY NOW'>;
+    register_success_body: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 120;
+      }> &
+      Schema.Attribute.DefaultTo<'Our counselors will contact you shortly.'>;
+    register_success_title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }> &
+      Schema.Attribute.DefaultTo<'Registration Submitted!'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiMomentsMilestoneSectionMomentsMilestoneSection
   extends Struct.SingleTypeSchema {
   collectionName: 'moments_milestone_sections';
@@ -1164,6 +1268,43 @@ export interface ApiProgramsSectionProgramsSection
         number
       >;
     subheading: Schema.Attribute.Text;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiResearchPageResearchPage extends Struct.SingleTypeSchema {
+  collectionName: 'research_pages';
+  info: {
+    description: "The eyebrow and paragraph above the research explorer on /research. The explorer's own labels and figures are built from the Scopus export by a script and are not editable here.";
+    displayName: 'research-page';
+    pluralName: 'research-pages';
+    singularName: 'research-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    eyebrow: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 40;
+      }> &
+      Schema.Attribute.DefaultTo<'Research'>;
+    intro: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'The detailed view. The map on the home page shows which fields the university publishes in and how much; this is where you read what was actually published \u2014 search the corpus, open a domain, and follow the papers and the people behind them.'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::research-page.research-page'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -2028,11 +2169,13 @@ declare module '@strapi/strapi' {
       'api::hero-section.hero-section': ApiHeroSectionHeroSection;
       'api::innovation-startups-section.innovation-startups-section': ApiInnovationStartupsSectionInnovationStartupsSection;
       'api::international-section.international-section': ApiInternationalSectionInternationalSection;
+      'api::mobile-dock.mobile-dock': ApiMobileDockMobileDock;
       'api::moments-milestone-section.moments-milestone-section': ApiMomentsMilestoneSectionMomentsMilestoneSection;
       'api::news-section.news-section': ApiNewsSectionNewsSection;
       'api::placement-section.placement-section': ApiPlacementSectionPlacementSection;
       'api::program.program': ApiProgramProgram;
       'api::programs-section.programs-section': ApiProgramsSectionProgramsSection;
+      'api::research-page.research-page': ApiResearchPageResearchPage;
       'api::see-us-in-action-section.see-us-in-action-section': ApiSeeUsInActionSectionSeeUsInActionSection;
       'api::step-inside-section.step-inside-section': ApiStepInsideSectionStepInsideSection;
       'api::testimonial-section.testimonial-section': ApiTestimonialSectionTestimonialSection;

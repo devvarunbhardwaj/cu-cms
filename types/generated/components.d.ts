@@ -208,6 +208,21 @@ export interface InternationalSectionAdvantageCard
   };
 }
 
+export interface MobileDockChatSuggestion extends Struct.ComponentSchema {
+  collectionName: 'components_mobile_dock_chat_suggestions';
+  info: {
+    description: 'One opener chip on a cold chat, so the sheet opens with something to tap instead of an empty field. Kept short \u2014 they wrap onto one or two rows at phone width.';
+    displayName: 'chat-suggestion';
+  };
+  attributes: {
+    label: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 30;
+      }>;
+  };
+}
+
 export interface MomentsMilestoneSectionMomentCard
   extends Struct.ComponentSchema {
   collectionName: 'components_moments_milestone_section_moment_cards';
@@ -936,6 +951,7 @@ declare module '@strapi/strapi' {
       'innovation-startups-section.startup': InnovationStartupsSectionStartup;
       'innovation-startups-section.stat': InnovationStartupsSectionStat;
       'international-section.advantage-card': InternationalSectionAdvantageCard;
+      'mobile-dock.chat-suggestion': MobileDockChatSuggestion;
       'moments-milestone-section.moment-card': MomentsMilestoneSectionMomentCard;
       'moments-milestone-section.moment-tile': MomentsMilestoneSectionMomentTile;
       'moments-milestone-section.moment-tile-row': MomentsMilestoneSectionMomentTileRow;

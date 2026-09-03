@@ -41,7 +41,7 @@ const KEEP_KEYS = new Set([
   'platform', 'cucet_deadline',
   'year', 'program_code', 'logo_id', 'partner', 'salary_unit', 'prefix', 'cucet_compulsory', 'cucet_scholarship_applicable',
 ]);
-const SHORT_KEYS = new Set(['mobile_title', 'mobile_subtitle', 'num', 'prefix']);
+const SHORT_KEYS = new Set(['mobile_title', 'mobile_subtitle', 'num', 'prefix', 'register_submit_label']);
 const mockCounters = new Map();
 function mockText(key, value) {
   if (/^(https?:\/\/|#|\/)/.test(value)) return value;
@@ -49,7 +49,7 @@ function mockText(key, value) {
   // count-up and unit parsing still have something to work on.
   if (/\d/.test(value) && value.length <= 16) return value.replace(/\d[\d,]*(\.\d+)?/g, '69');
   const n = (mockCounters.get(key) ?? 0) + 1; mockCounters.set(key, n);
-  // Fields the schema caps at 20 characters or fewer get the short form.
+  // Fields whose cap is too tight for `Testing <field> <n>` get the short form.
   if (SHORT_KEYS.has(key)) return `Test ${n}`;
   const label = key.replace(/_/g, ' ');
   const accent = /\*[^*]+\*/.test(value);
@@ -307,6 +307,29 @@ await single('api::programs-section.programs-section', {
   cucet_cta_link: orNull(D.programsSection.cucetCtaLink),
   cucet_helpline: orNull(D.programsSection.cucetHelpline),
   scholarship_slabs: D.programsSection.slabs.map((s) => ({ marks: s.marks, award: s.award })),
+});
+
+// ── mobile dock ─────────────────────────────────────────────────────────────
+await single('api::mobile-dock.mobile-dock', {
+  cta_label: D.mobileDock.ctaLabel,
+  register_eyebrow: D.mobileDock.registerEyebrow,
+  register_heading: D.mobileDock.registerHeading,
+  register_deadline_note: D.mobileDock.registerDeadlineNote,
+  register_consent: D.mobileDock.registerConsent,
+  register_submit_label: D.mobileDock.registerSubmitLabel,
+  register_success_title: D.mobileDock.registerSuccessTitle,
+  register_success_body: D.mobileDock.registerSuccessBody,
+  chat_title: D.mobileDock.chatTitle,
+  chat_status: D.mobileDock.chatStatus,
+  chat_greeting: D.mobileDock.chatGreeting,
+  chat_placeholder: D.mobileDock.chatPlaceholder,
+  chat_suggestions: D.mobileDock.chatSuggestions.map((c) => ({ label: c.label })),
+});
+
+// ── research page ───────────────────────────────────────────────────────────
+await single('api::research-page.research-page', {
+  eyebrow: D.researchPage.eyebrow,
+  intro: D.researchPage.intro,
 });
 
 // ── programs (collection) ───────────────────────────────────────────────────
