@@ -2,7 +2,7 @@
  * Seeds every section from the frontend's shipped defaults.
  *
  *   1. In lko-cu:  bun run scripts/dump-cms-defaults.ts  (writes cms-defaults.json)
- *   2. In cms:     node scripts/seed-from-defaults.cjs ../lko-cu/cms-defaults.json [--mock]
+ *   2. In cms:     node scripts/seed-from-defaults.cjs ../lko-cu/cms-defaults.json [--mock] [--fresh-media]
  *
  * Boots Strapi in-process (no HTTP server, no API token needed), uploads the
  * referenced media out of lko-cu/public into the media library, then upserts
@@ -16,13 +16,16 @@
 const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
+const crypto = require('node:crypto');
+const sharp = require('sharp');
 const { createStrapi } = require('@strapi/strapi');
 
 (async () => {
 
 const dataPath = process.argv.find((a) => a.endsWith('.json'));
 const MOCK = process.argv.includes('--mock');
-if (!dataPath) { console.error('usage: node scripts/seed-from-defaults.cjs <cms-defaults.json> [--mock]'); process.exit(1); }
+const FRESH_MEDIA = process.argv.includes('--fresh-media');
+if (!dataPath) { console.error('usage: node scripts/seed-from-defaults.cjs <cms-defaults.json> [--mock] [--fresh-media]'); process.exit(1); }
 
 /**
  * `--mock`: write placeholder content instead of the real copy, so it is
@@ -80,9 +83,84 @@ const uploadService = app.plugin('upload').service('upload');
 const fileCache = new Map();
 let uploaded = 0, reused = 0, failed = 0;
 
-/** One upload at a time: sharp under a burst of parallel uploads has crashed this process. */
+/**
+ * One upload at a time: sharp under a burst of parallel uploads has crashed
+ * this process (SIGBUS). Only the upload call is serialized -- the download
+ * that precedes it is pure network and runs concurrently, which matters when
+ * `--fresh-media` is fetching 290 files rather than reading them off disk.
+ */
 let queue = Promise.resolve();
 const serialized = (fn) => { const run = queue.then(fn, fn); queue = run.catch(() => {}); return run; };
+
+/** Bounded concurrency for the download half. */
+let inFlight = 0;
+const waiters = [];
+async function withSlot(fn, limit = 8) {
+  if (inFlight >= limit) await new Promise((r) => waiters.push(r));
+  inFlight++;
+  try { return await fn(); }
+  finally { inFlight--; const next = waiters.shift(); if (next) next(); }
+}
+
+/**
+ * `--fresh-media`: swap every image for a different photograph.
+ *
+ * `--mock` alone proves the *copy* is coming from Strapi; it deliberately
+ * leaves media alone, so a page full of placeholder text still shows the real
+ * photography and there is no way to tell by eye whether the images are being
+ * served by the CMS or by the bundle. This closes that gap.
+ *
+ * Two rules make the swap safe to look at:
+ *
+ * The replacement keeps the source's aspect ratio, read off the real file with
+ * sharp. Nothing here is `object-contain` -- a 16:9 hero given a square photo
+ * would be cropped to something the layout was never designed around, and the
+ * point is to see the layout intact with different pictures in it.
+ *
+ * The seed is a hash of the original path, so a given slot draws the same
+ * photograph on every run. A re-seed that reshuffled all 290 images would make
+ * it impossible to tell a real change from noise.
+ *
+ * Video is left alone: there is no equivalent source for it, and the two clips
+ * are backgrounds rather than content.
+ */
+const VIDEO_EXT = new Set(['.mp4', '.webm', '.mkv']);
+
+/** Longest edge of a stand-in, so 290 downloads stay reasonable. */
+const FRESH_CAP = 1400;
+
+/**
+ * The source's own dimensions, capped, so the replacement drops into the same
+ * slot. Falls back to 4:3 when the file cannot be measured (an SVG has no
+ * intrinsic raster size, and sharp will not read one).
+ */
+async function freshSize(url) {
+  const src = path.join(PUBLIC_DIR, url);
+  try {
+    const { width, height } = await sharp(src).metadata();
+    if (!width || !height) throw new Error('no intrinsic size');
+    const scale = Math.min(1, FRESH_CAP / Math.max(width, height));
+    return { w: Math.max(1, Math.round(width * scale)), h: Math.max(1, Math.round(height * scale)) };
+  } catch {
+    return { w: 1200, h: 900 };
+  }
+}
+
+/**
+ * A stable stand-in photograph for one source path, or null to keep the
+ * original (video, and anything not served off local disk).
+ *
+ * Lorem Picsum rather than the Unsplash API: it is the same photography, it
+ * needs no key, and `/seed/<x>` makes the choice a pure function of the path.
+ */
+async function freshMediaUrl(url) {
+  if (/^https?:\/\//.test(url)) return null;
+  const ext = path.extname(url.replace(/[?#].*$/, '')).toLowerCase();
+  if (VIDEO_EXT.has(ext)) return null;
+  const { w, h } = await freshSize(url);
+  const seed = crypto.createHash('sha1').update(url).digest('hex').slice(0, 12);
+  return `https://picsum.photos/seed/${seed}/${w}/${h}.jpg`;
+}
 
 /** Media library name for a source url: unique per path, stable across runs. */
 const mediaName = (url) => url.replace(/^https?:\/\//, '').replace(/^\//, '').replace(/[\\/]+/g, '__').replace(/[?#].*$/, '');
@@ -94,35 +172,45 @@ async function media(asset) {
   const alt = (typeof asset === 'object' && (asset.alt ?? asset.alternativeText)) || undefined;
   if (!url) return null;
   if (fileCache.has(url)) return fileCache.get(url);
-  return serialized(() => uploadOne(url, alt));
+  const pending = uploadOne(url, alt);
+  fileCache.set(url, pending);
+  return pending;
 }
 
 async function uploadOne(url, alt) {
   if (fileCache.has(url)) return fileCache.get(url);
-  const name = mediaName(url);
+  /*
+    Resolved here rather than at the call sites so every media field goes
+    through it, and cached under the *original* path so a slot keeps its
+    stand-in for the whole run. The library name comes from the picsum url, so
+    the real assets are never overwritten -- flipping back is just a re-seed
+    without the flag.
+  */
+  const source = (FRESH_MEDIA && (await freshMediaUrl(url))) || url;
+  const name = mediaName(source);
   const existing = await app.db.query('plugin::upload.file').findOne({ where: { name } });
   if (existing) { fileCache.set(url, existing.id); reused++; return existing.id; }
 
   let filepath, mimetype;
-  const ext = path.extname(url.replace(/[?#].*$/, '')).toLowerCase();
+  const ext = path.extname(source.replace(/[?#].*$/, '')).toLowerCase();
   try {
-    if (/^https?:\/\//.test(url)) {
-      const res = await fetch(url);
+    if (/^https?:\/\//.test(source)) {
+      const res = await withSlot(() => fetch(source));
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       mimetype = res.headers.get('content-type')?.split(';')[0] || MIME[ext] || 'application/octet-stream';
       filepath = path.join(tmpDir, name + (ext || ''));
       fs.writeFileSync(filepath, Buffer.from(await res.arrayBuffer()));
     } else {
-      const src = path.join(PUBLIC_DIR, url);
+      const src = path.join(PUBLIC_DIR, source);
       if (!fs.existsSync(src)) throw new Error('missing on disk');
       filepath = path.join(tmpDir, name);
       fs.copyFileSync(src, filepath);
       mimetype = MIME[ext] || 'application/octet-stream';
     }
-    const [file] = await uploadService.upload({
+    const [file] = await serialized(() => uploadService.upload({
       data: { fileInfo: { name, alternativeText: alt, caption: alt } },
       files: { filepath, originalFilename: name, mimetype, size: fs.statSync(filepath).size },
-    });
+    }));
     fileCache.set(url, file.id); uploaded++;
     return file.id;
   } catch (e) {
