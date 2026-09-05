@@ -2,15 +2,36 @@
   "collectionName": "components_campus_life_section_galleries",
   "info": {
     "displayName": "gallery",
-    "description": "One tab's photo set. The first image doubles as that tab's backdrop."
+    "description": "One tab's photo set. The first image doubles as that tab's backdrop. Portrait crops pair with the landscape frames by position."
   },
   "options": {},
   "attributes": {
     "group": {
       "type": "enumeration",
-      "enum": ["infrastructure", "ai-labs", "events", "fests", "academic"],
+      "enum": [
+        "infrastructure",
+        "ai-labs",
+        "events",
+        "fests",
+        "academic"
+      ],
       "required": true
     },
-    "images": { "type": "media", "multiple": true, "required": true, "allowedTypes": ["images"] }
+    "images": {
+      "type": "media",
+      "multiple": true,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "images_mobile": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    }
   }
 }

@@ -38,6 +38,14 @@
         "images"
       ]
     },
+    "image_mobile": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
     "image_caption": {
       "type": "string",
       "required": false,

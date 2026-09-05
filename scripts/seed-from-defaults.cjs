@@ -221,6 +221,24 @@ async function uploadOne(url, alt) {
 }
 const mediaList = async (assets) => (await Promise.all((assets ?? []).map(media))).filter((id) => id != null);
 
+/**
+ * Like `mediaList`, but for a list whose *positions* carry meaning — the
+ * portrait crops in `campus-life-section.gallery.images_mobile` are paired with
+ * `images` by index.
+ *
+ * A failed upload is truncated at rather than filtered out. Dropping one from
+ * the middle would shift every crop after it onto the wrong frame, which the
+ * site renders without complaint; stopping short only costs the tail its crops,
+ * and a missing crop already falls back to its landscape frame.
+ */
+const mediaSlots = async (assets) => {
+  const ids = await Promise.all((assets ?? []).map(media));
+  const gap = ids.indexOf(null);
+  if (gap === -1) return ids;
+  console.warn(`  ! media slot ${gap} failed to upload, dropping ${ids.length - gap} paired asset(s)`);
+  return ids.slice(0, gap);
+};
+
 /** Upserts and publishes a single type. */
 async function single(uid, data) {
   const docs = app.documents(uid);
@@ -276,7 +294,8 @@ await single('api::moments-milestone-section.moments-milestone-section', {
   heading: D.moments.heading,
   cards: (await Promise.all(D.moments.cards.map(async (c) => ({
     badge: c.badge, head_sans: c.headSans, head_italic: c.headItalic, head_tail: orNull(c.headTail), body: c.body,
-    image: await media(c.image), image_caption: orNull(c.imageCaption), image_treatment: c.imageTreatment ?? 'cover',
+    image: await media(c.image), image_mobile: await media(c.imageMobile),
+    image_caption: orNull(c.imageCaption), image_treatment: c.imageTreatment ?? 'cover',
     tiles: c.tiles.map((t) => ({ label: t.label, value: t.value, value_suffix: orNull(t.valueSuffix), rows: (t.rows ?? []).map((r) => ({ label: r.label, value: orNull(r.value) })) })),
   })))).filter((c) => c.image),
 });
@@ -329,7 +348,17 @@ await single('api::international-section.international-section', {
 // ── campus life ─────────────────────────────────────────────────────────────
 await single('api::campus-life-section.campus-life-section', {
   heading: D.campus.heading, subheading: orNull(D.campus.subheading), cta_label: D.campus.ctaLabel,
-  galleries: (await Promise.all(D.campus.galleries.map(async (g) => ({ group: slug(g.group), images: await mediaList(g.photos) })))).filter((g) => g.images.length),
+  /*
+    `images_mobile` is index-paired with `images`, so a photo with no portrait
+    crop re-uses its own landscape frame in that slot rather than being skipped
+    -- skipping would slide every later crop onto the wrong frame. `media`
+    caches by url, so the repeat costs a lookup, not a second upload.
+  */
+  galleries: (await Promise.all(D.campus.galleries.map(async (g) => ({
+    group: slug(g.group),
+    images: await mediaList(g.photos),
+    images_mobile: await mediaSlots(g.photos.map((p) => ({ url: p.mobile || p.url, alt: p.alt }))),
+  })))).filter((g) => g.images.length),
 });
 
 // ── see us in action ────────────────────────────────────────────────────────

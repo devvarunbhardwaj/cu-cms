@@ -36,7 +36,7 @@ export interface AnnouncementBarSocialLink extends Struct.ComponentSchema {
 export interface CampusLifeSectionGallery extends Struct.ComponentSchema {
   collectionName: 'components_campus_life_section_galleries';
   info: {
-    description: "One tab's photo set. The first image doubles as that tab's backdrop.";
+    description: "One tab's photo set. The first image doubles as that tab's backdrop. Portrait crops pair with the landscape frames by position.";
     displayName: 'gallery';
   };
   attributes: {
@@ -45,6 +45,7 @@ export interface CampusLifeSectionGallery extends Struct.ComponentSchema {
     > &
       Schema.Attribute.Required;
     images: Schema.Attribute.Media<'images', true> & Schema.Attribute.Required;
+    images_mobile: Schema.Attribute.Media<'images', true>;
   };
 }
 
@@ -256,6 +257,7 @@ export interface MomentsMilestoneSectionMomentCard
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 120;
       }>;
+    image_mobile: Schema.Attribute.Media<'images'>;
     image_treatment: Schema.Attribute.Enumeration<['cover', 'contain-banner']> &
       Schema.Attribute.DefaultTo<'cover'>;
     tiles: Schema.Attribute.Component<
